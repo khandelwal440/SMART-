@@ -19,10 +19,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
+/* nothing may widen the page on phones (stops the sideways shift) */
+html{overflow-x:hidden}
+body{overflow-x:clip;max-width:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",Arial,sans-serif;font-weight:500;font-size:17px;line-height:1.4;letter-spacing:-.01em;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",Arial,sans-serif;font-weight:500;font-size:17px;line-height:1.4;letter-spacing:-.01em}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -127,10 +130,9 @@ html.fallback .preloader{display:none}
 .hero-bl{position:absolute;left:0;top:58%;bottom:0;width:66.666%;background:var(--bg);z-index:3;padding:36px var(--gut);display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--line)}
 .hero-bl .eyebrow{color:var(--orange);margin-bottom:16px}
 .hero-bl h1{max-width:900px}
-.hero-bl .m-cta{display:none}
-.hero-br{position:absolute;right:0;top:58%;bottom:0;width:33.333%;background:var(--bg);z-index:3;padding:36px var(--gut) 36px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:18px}
-.hero-br p{color:var(--muted);max-width:330px}
-.hero-br .row{display:flex;gap:8px;flex-wrap:wrap}
+.hero-bl .m-cta{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
+.hero-bl .m-cta p{color:var(--muted);max-width:400px}
+.hero-bl .m-cta .row{display:flex;gap:8px;flex-wrap:wrap}
 
 /* ---------- regions (trusted) ---------- */
 .regions{padding:72px 0 0}
@@ -197,14 +199,14 @@ html.fallback .preloader{display:none}
 /* ---------- tilt cards (leadership) ---------- */
 .tilt{position:relative;background:var(--bg)}
 .tilt-pin-height{height:500vh}
-.tilt-contain{height:100vh;position:relative;overflow:hidden}
+.tilt-contain{height:100vh;height:100svh;position:relative;overflow:hidden}
 .tilt-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 var(--gut)}
 .tilt-content .eyebrow{color:var(--orange);margin-bottom:18px}
 .tilt-content h2{max-width:900px;margin-bottom:22px}
 .tilt-content p{max-width:620px}
 .tilt-circles{position:absolute;inset:0}
 .tilt-circle{position:absolute;inset:0;transform-origin:50% 160%;will-change:transform}
-.tilt-card{position:absolute;left:50%;top:50%;width:min(560px,86vw);margin-left:calc(min(560px,86vw) / -2);transform:translateY(60vh);background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,44px);min-height:360px;display:flex;flex-direction:column;gap:18px;box-shadow:0 18px 36px -22px rgba(0,38,66,.4);will-change:transform}
+.tilt-card{position:absolute;left:50%;top:50%;width:min(560px,84vw);margin-left:calc(min(560px,84vw) / -2);transform:translateY(60vh);background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,44px);min-height:360px;display:flex;flex-direction:column;gap:18px;box-shadow:0 18px 36px -22px rgba(0,38,66,.4);will-change:transform}
 .tilt-circle:nth-child(odd) .tilt-card{background:var(--navy);color:#fff;border-color:var(--navy)}
 .tilt-circle:nth-child(odd) .tilt-card p,.tilt-circle:nth-child(odd) .tilt-card .mark{color:rgba(255,255,255,.7);border-color:var(--navy-line)}
 .tilt-card .num{font-size:14px;color:var(--orange);font-weight:600}
@@ -217,7 +219,7 @@ html.fallback .preloader{display:none}
 .res-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;padding:0 var(--gut);align-items:center}
 .res-grid .lead{font-size:clamp(20px,1.8vw,26px);letter-spacing:-.02em;line-height:1.25;max-width:440px}
 .res-grid .sub{font-size:16px;margin-top:18px;max-width:440px}
-.stat-slider{position:relative;height:500px}
+.stat-slider{position:relative;height:500px;overflow:hidden}
 .stat-list{position:absolute;inset:0}
 .stat{position:absolute;left:0;right:56px;top:50%;height:100px;margin-top:-50px;display:flex;align-items:center;justify-content:center;gap:24px;color:#fff;cursor:pointer;opacity:0}
 .stat .v{font-size:clamp(44px,5vw,68px);letter-spacing:-.04em;min-width:3.4ch;text-align:right;color:rgba(255,255,255,.5);transition:color .6s}
@@ -330,11 +332,14 @@ html.fallback .preloader{display:none}
 .contact .eyebrow{color:var(--lime);margin-bottom:18px}
 .contact h2{margin-bottom:24px}
 .contact .lines{display:flex;flex-direction:column;gap:10px;margin-top:36px}
-.contact .lines a{display:flex;align-items:center;gap:14px;font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;transition:color .3s}
+.contact-in>*,.about-top>*,.car-top>*,.internal>*,.res-grid>*,.detail .head>*,.f-top>*{min-width:0}
+.contact .lines a{display:flex;align-items:center;gap:14px;overflow-wrap:anywhere;min-width:0;font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;transition:color .3s}
 .contact .lines a:hover{color:var(--lime)}
 .contact .lines small{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;width:90px;flex:none}
 form.cb{background:rgba(255,255,255,.04);border:1px solid var(--navy-line);border-radius:var(--r);padding:clamp(20px,3vw,36px);display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
 form.cb .full{grid-column:1/-1}
+form.cb>*{min-width:0}
+form.cb input,form.cb select,form.cb textarea{width:100%;min-width:0}
 form.cb label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:.04em}
 form.cb input,form.cb select,form.cb textarea{height:48px;border-radius:var(--r);border:1px solid var(--navy-line);background:rgba(255,255,255,.06);padding:0 14px;font-size:16px;color:#fff;outline:none;transition:border-color .3s}
 form.cb textarea{height:100px;padding:12px 14px;resize:vertical}
@@ -372,20 +377,18 @@ footer{background:var(--navy);color:#fff}
   .f-cols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:991px){
-  .hero{height:auto}
-  .hero-sticky{position:relative}
+  .hero{height:200vh}
   .h-line,.crosshair{top:50%}
-  .v-line,.crosshair,.hero-br{display:none}
+  .v-line,.crosshair{display:none}
   .hero-tr{width:100%;bottom:50%;padding:0 var(--gut) 24px}
   .hero-anchors{display:none}
   .hero-bl{width:100%;top:50%;border-right:0;padding:28px var(--gut) 28px;justify-content:flex-start;gap:24px}
-  .hero-bl .m-cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+  .hero-bl .m-cta{margin-top:auto;flex-direction:column;align-items:flex-start;gap:16px}
   .steps{grid-template-columns:1fr}
   .steps-left{border-right:0}
   .steps-right{display:none}
-  .step{min-height:0;opacity:1!important}
+  .step{min-height:0;padding:40px 0}
   .step .m-img{display:block;aspect-ratio:16/10;border-radius:var(--r);margin-bottom:22px}
-  .step .n i{width:40px}
 }
 @media (max-width:820px){
   body{font-size:16px}
@@ -422,12 +425,10 @@ footer{background:var(--navy);color:#fff}
   .contact .lines small{width:76px}
 }
 @media (max-width:767px){
-  .tilt-pin-height{height:auto}
-  .tilt-contain{height:auto;overflow:visible;padding:90px 0 40px}
-  .tilt-content{position:relative;inset:auto;margin-bottom:40px}
-  .tilt-circles{position:relative;display:flex;flex-direction:column;gap:16px;padding:0 var(--gut)}
-  .tilt-circle{position:relative;inset:auto}
-  .tilt-card{position:relative;left:auto;top:auto;width:auto;margin:0;transform:none;min-height:0}
+  .tilt-circle{transform-origin:50% 120%}
+  .tilt-card{min-height:0;padding:22px;gap:12px}
+  .tilt-card h3{font-size:26px}
+  .tilt-card p{font-size:15px}
 }
 @media (prefers-reduced-motion:reduce){
   .btn .lbl span,.cursor .dot{transition:none}
@@ -515,16 +516,12 @@ footer{background:var(--navy);color:#fff}
         <p class="eyebrow">We are expert in this field</p>
         <h1 data-home-hero-heading>Strategic solutions for workforce excellence</h1>
       </div>
-      <div class="m-cta">
-        <a class="btn btn-orange" href="#services"><span class="lbl">Our services</span> <span class="arr">→</span></a>
-        <a class="btn btn-outline" href="#about"><span class="lbl">About us</span></a>
-      </div>
-    </div>
-    <div class="hero-br" data-home-hero-fade>
-      <p>India's leading Executive Search and HR Consultancy firm, offering unmatched skill mapping services.</p>
-      <div class="row">
-        <a class="btn btn-orange" href="#services"><span class="lbl" data-button-animate-chars>Our services</span> <span class="arr">→</span></a>
-        <a class="btn btn-outline" href="#about"><span class="lbl" data-button-animate-chars>About us</span></a>
+      <div class="m-cta" data-home-hero-fade>
+        <p>India's leading Executive Search and HR Consultancy firm, offering unmatched skill mapping services.</p>
+        <div class="row">
+          <a class="btn btn-orange" href="#services"><span class="lbl" data-button-animate-chars>Our services</span> <span class="arr">→</span></a>
+          <a class="btn btn-outline" href="#about"><span class="lbl" data-button-animate-chars>About us</span></a>
+        </div>
       </div>
     </div>
   </div>
@@ -921,7 +918,7 @@ const isMobile=()=>innerWidth<=991;
 const isTouch='ontouchstart' in window||navigator.maxTouchPoints>0;
 
 /* ---------- topographic contour generator ---------- */
-function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke}={}){
+function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke,vert}={}){
   const W=1440,H=900,ns='http://www.w3.org/2000/svg';
   let s=seed;const r=()=>(s=(s*9301+49297)%233280)/233280;
   const ph=[r()*6,r()*6,r()*6];
@@ -931,6 +928,14 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke}={}){
     const l=pts[pts.length-1];return d+`L${l[0]} ${l[1].toFixed(1)}`};
   const add=(d,cls)=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',d);p.setAttribute('class',cls);if(stroke&&cls!=='faint')p.style.stroke=stroke;svg.appendChild(p);return p};
   for(let i=0;i<faint;i++)add(line(i*H/faint*1.3-120,40+r()*30,i),'faint');
+  /* vertical bundle: contours that drop down from the hero's middle line (bottom-right panel) */
+  const vline=(bx,amp,off,y0)=>{const pts=[];for(let y=y0;y<=H+60;y+=48){const k=(y-y0)/(H-y0);pts.push([bx+amp*k*Math.sin(y/120+ph[0]+off*.15)+amp*.5*Math.sin(y/70+ph[1]+off*.2)-k*k*90,y])}
+    let d=`M${pts[0][0].toFixed(1)} ${pts[0][1]}`;for(let i=1;i<pts.length-1;i++){const mx=(pts[i][0]+pts[i+1][0])/2,my=(pts[i][1]+pts[i+1][1])/2;d+=`Q${pts[i][0].toFixed(1)} ${pts[i][1]} ${mx.toFixed(1)} ${my}`}
+    const l=pts[pts.length-1];return d+`L${l[0].toFixed(1)} ${l[1]}`};
+  if(vert){
+    for(let i=0;i<vert.n;i++)add(vline(vert.x+i*18,70,i*.4,vert.y0+i*10),'dk');
+    add(vline(vert.x+vert.n*18+14,74,2.2,vert.y0+vert.n*10),'thick');
+  }
   if(bundle){
     for(let i=0;i<bundle;i++)add(line(baseY+i*16,60,i*.4),'dk');
     add(line(baseY+80,62,2.2),'thick');
@@ -940,7 +945,10 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke}={}){
 topo($('#topoPre'),{faint:10,bundle:5,seed:9,stroke:'rgba(200,245,90,.5)'});
 $$('#topoPre .faint').forEach(p=>p.style.stroke='rgba(255,255,255,.07)');
 topo($('#topo0'),{faint:14,bundle:5,seed:3,baseY:220});
-topo($('#topo1'),{bundle:4,seed:12,baseY:520});
+/* scroll-drawn layer: on desktop it drops into the open bottom-right panel; on phones the
+   bottom half is the heading panel, so it runs across the visible top half instead */
+if(innerWidth>991)topo($('#topo1'),{vert:{x:1080,y0:520,n:4},seed:12});
+else{$('#topo1').setAttribute('preserveAspectRatio','xMidYMin slice');topo($('#topo1'),{bundle:4,seed:12,baseY:110})}
 topo($('#topo2'),{trail:true,seed:4});
 topo($('#topoAbout'),{faint:10,seed:7});
 topo($('#topoContact'),{faint:10,seed:11});
@@ -1042,7 +1050,7 @@ function intro(){
   gsap.set(split.chars,{opacity:0});
   gsap.set([fade,$('.m-cta')],{autoAlpha:0});
   /* scroll-revealed layers start hidden on desktop */
-  if(!m){gsap.set(svgs[1].querySelectorAll('path'),{drawSVG:'0%'});gsap.set(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'})}
+  gsap.set(svgs[1].querySelectorAll('path'),{drawSVG:'0%'});gsap.set(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'});
   /* Preloader plays once per visit; scrolling unlocks as soon as it starts wiping away
      (like abatable), instead of waiting for the whole intro to finish. */
   let seen=false;try{seen=sessionStorage.getItem('st-intro')==='1';sessionStorage.setItem('st-intro','1')}catch(_){}
@@ -1063,10 +1071,6 @@ function intro(){
   }
   tl.from(bgIn,{scale:1.25,duration:2.2,ease:'expo.out'},B)
     .fromTo(svgs[0].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:3,ease:'power3.out',stagger:.015},B+.2);
-  if(m){
-    tl.fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:3,ease:'power3.out'},B+.2)
-      .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:3,ease:'power3.out'},B+.2);
-  }
   if(!(m&&isTouch))tl.from(nav,{yPercent:-125,duration:1.2,ease:'expo.out',clearProps:'transform'},B+.5);
   tl.from(hl,{top:'100%',duration:1.3},B+.2)
     .from(vl,{right:'-60%',duration:1.3},B+.2);
@@ -1079,9 +1083,8 @@ function intro(){
   return tl;
 }
 
-/* ---------- hero scroll scrub (desktop) ---------- */
+/* ---------- hero scroll scrub (desktop + mobile) ---------- */
 function initHeroScroll(){
-  if(isMobile())return;
   const hero=$('[data-home-hero]'),bg=$('[data-home-hero-bg]'),svgs=$$('[data-home-hero-bg-svg]',hero),paras=$$('[data-home-hero-paragraph]',hero),links=$$('[data-home-hero-anchor-link]',hero);
   const cur=i=>links.forEach((l,j)=>l.classList.toggle('w--current',j===i));cur(0);
   const tl=gsap.timeline({scrollTrigger:{trigger:hero,start:'clamp(top top)',end:'bottom bottom',scrub:true,
@@ -1135,7 +1138,7 @@ function mobileMenu(){
 
 /* ---------- reveal content (heading chars / paragraph scale / fade) ---------- */
 function reveal(){
-  const m=isMobile();
+  const m=false; /* same letter-by-letter reveal on phones as on desktop */
   $$('[data-reveal-content="component"]').forEach(c=>{
     const heads=$$('[data-reveal-content="heading"]',c),paras=$$('[data-reveal-content="paragraph"]',c),fades=$$('[data-reveal-content="fade"]',c);
     const tl=gsap.timeline({scrollTrigger:{trigger:c,start:'top 80%',once:true}});
@@ -1175,18 +1178,22 @@ function stickySteps(){
   const upd=()=>{const mid=innerHeight/2;let best=0,dist=1e9;items.forEach((n,i)=>{const r=$('[data-sticky-steps-anchor]',n).getBoundingClientRect(),d=Math.abs(mid-(r.top+r.height/2));if(d<dist){dist=d;best=i}});
     items.forEach((n,i)=>n.setAttribute('data-sticky-steps-item-status',i<best?'before':i>best?'after':'active'));show(best)};
   ScrollTrigger.create({trigger:'[data-sticky-steps-init]',start:'top bottom',end:'bottom top',onUpdate:upd,onRefresh:upd});
+  /* phones: the pinned visual is hidden, so each step's own photo wipes open as it scrolls in */
+  gsap.matchMedia().add('(max-width: 991px)',()=>{
+    $$('.step .m-img').forEach(im=>gsap.fromTo(im,{clipPath:'inset(18% 12% 18% 12%)'},{clipPath:'inset(0% 0% 0% 0%)',ease:'none',scrollTrigger:{trigger:im,start:'top 95%',end:'top 45%',scrub:true}}));
+  });
   addEventListener('resize',upd);upd();
 }
 
-/* ---------- tilt cards (pinned, ≥768px) ---------- */
+/* ---------- tilt cards (pinned, all screen sizes) ---------- */
 function tiltCards(){
   const mm=gsap.matchMedia();
-  mm.add('(min-width: 768px)',()=>{
+  mm.add('all',()=>{
     const wrap=$('.tilt-cards_wrap'),ph=$('.tilt-pin-height',wrap),circles=$$('.tilt-circle',wrap);
     gsap.fromTo($('.tilt-circles',wrap),{y:'5%'},{y:'-5%',ease:'none',scrollTrigger:{trigger:ph,start:'top top',end:'bottom bottom',pin:$('.tilt-contain',wrap),scrub:true,anticipatePin:1,pinSpacing:true}});
     const dist=()=>ph.clientHeight-innerHeight;
     gsap.to($('.tilt-content',wrap),{opacity:0,ease:'none',scrollTrigger:{trigger:ph,start:'top top',end:()=>'+='+dist()*.25,scrub:true}});
-    const step=4,seg=()=>dist()/circles.length;let rot=-((circles.length-1)*step)/2;
+    const step=innerWidth<768?1.2:4,seg=()=>dist()/circles.length;let rot=-((circles.length-1)*step)/2;
     circles.forEach((c,i)=>{const r=rot;
       gsap.to(c,{rotation:r,ease:'power1.out',scrollTrigger:{trigger:ph,start:()=>'top top-='+seg()*i,end:()=>'+='+seg(),scrub:true,invalidateOnRefresh:true}});
       gsap.fromTo($('.tilt-card',c),{y:()=>innerHeight*.6+300},{y:()=>-($('.tilt-card',c).offsetHeight/2),rotation:r,ease:'power1.out',scrollTrigger:{trigger:ph,start:()=>'top top-='+seg()*i,end:()=>'+='+seg(),scrub:true,invalidateOnRefresh:true}});
