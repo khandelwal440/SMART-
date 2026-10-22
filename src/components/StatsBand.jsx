@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { JOBS, REGIONS, SERVICES } from '../data/content.js';
+import { useInView } from './Reveal.jsx';
 
 const STATS = [
   { value: 20, suffix: '+', label: 'Years of Experience' },
@@ -10,37 +11,28 @@ const STATS = [
 
 /** Counts from 0 to `to` once the element scrolls into view. */
 function CountUp({ to, suffix }) {
-  const ref = useRef(null);
+  const [ref, inView] = useInView();
   const [n, setN] = useState(0);
+  const done = useRef(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    if (!inView || done.current) return undefined;
+    done.current = true;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setN(to);
       return undefined;
     }
-    let raf;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        const start = performance.now();
-        const tick = (now) => {
-          const t = Math.min(1, (now - start) / 1600);
-          setN(Math.round(to * (1 - Math.pow(1 - t, 3))));
-          if (t < 1) raf = requestAnimationFrame(tick);
-        };
-        raf = requestAnimationFrame(tick);
-      },
-      { threshold: 0.4 },
-    );
-    io.observe(el);
+    const start = Date.now();
+    const id = setInterval(() => {
+      const t = Math.min(1, (Date.now() - start) / 1600);
+      setN(Math.round(to * (1 - Math.pow(1 - t, 3))));
+      if (t >= 1) clearInterval(id);
+    }, 30);
     return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
+      clearInterval(id);
+      setN(to); // never leave a half-counted number if unmounted mid-animation
     };
-  }, [to]);
+  }, [inView, to]);
 
   return (
     <span ref={ref} aria-label={`${to}${suffix}`}>

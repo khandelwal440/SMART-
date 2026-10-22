@@ -79,8 +79,9 @@ export default function ServiceCarousel({ items = SERVICES }) {
 
   useEffect(() => {
     if (!animate) {
-      const r = requestAnimationFrame(() => setAnimate(true));
-      return () => cancelAnimationFrame(r);
+      // re-enable transitions just after the instant jump has been painted
+      const t = setTimeout(() => setAnimate(true), 30);
+      return () => clearTimeout(t);
     }
     return undefined;
   }, [animate]);
