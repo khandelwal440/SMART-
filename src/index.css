@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base typography mirrors the Bootstrap 5 defaults smartankbiz.com is built on. */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 { font-weight: 500; line-height: 1.2; margin-bottom: 0.5rem; }
+  h1 { font-size: calc(1.375rem + 1.5vw); }
+  h2 { font-size: calc(1.325rem + 0.9vw); }
+  h3 { font-size: calc(1.3rem + 0.6vw); }
+  h4 { font-size: calc(1.275rem + 0.3vw); }
+  h5 { font-size: 1.25rem; }
+  h6 { font-size: 1rem; }
+  @media (min-width: 1200px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+  }
+  p { margin-bottom: 1rem; }
+  :focus-visible { outline: 2px solid #f7a400; outline-offset: 2px; }
+}
+
+@layer components {
+  /* Amber pill with a navy circle that fills the button on hover */
+  .st-btn {
+    @apply relative isolate inline-flex cursor-pointer select-none items-center whitespace-nowrap rounded-[30px] bg-amber text-sm font-bold uppercase leading-none text-white transition-all duration-300;
+    letter-spacing: 0.02em;
+    padding: 18px 18px 18px 22px;
+  }
+  .st-btn::before {
+    content: '';
+    @apply absolute right-0 top-1/2 -z-10 h-[50px] w-[50px] -translate-y-1/2 rounded-[30px] bg-navy transition-all duration-300;
+  }
+  .st-btn:hover::before { width: 100%; }
+  .st-btn:disabled { @apply cursor-not-allowed opacity-70; }
+
+  .head {
+    @apply font-extrabold text-navy;
+    font-size: 22px;
+    line-height: 30px;
+  }
+  @media (min-width: 576px) { .head { font-size: 30px; line-height: 38px; } }
+  @media (min-width: 768px) { .head { font-size: 33px; line-height: 45px; } }
+  @media (min-width: 992px) { .head { font-size: 34px; line-height: 45px; } }
+  @media (min-width: 1200px) { .head { font-size: 44px; line-height: 55px; } }
+
+  .head-tag {
+    @apply mb-[15px] inline-block rounded-full bg-tag font-extrabold uppercase text-navy;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    padding: 4px 13px;
+    line-height: 1.2;
+  }
+
+  /* Bootstrap .form-control / .form-select look */
+  .form-control {
+    @apply block w-full rounded border border-[#ced4da] bg-white px-3 py-1.5 text-base font-normal text-[#212529] transition placeholder:text-[#6c757d] focus:border-[#86b7fe] focus:outline-none focus:ring-4 focus:ring-[#0d6efd]/25;
+    line-height: 2.3;
+  }
+  .form-control.is-invalid { @apply border-red-500 focus:ring-red-500/25; }
+
+  .justify-text p { text-align: justify; }
+}
+
+/* ---------- AOS-style scroll animations (duration 650ms, replays like the original) ---------- */
+[data-aos] {
+  transition-property: transform, opacity;
+  transition-duration: 650ms;
+  transition-timing-function: ease;
+}
+[data-aos^='fade'] { opacity: 0; }
+[data-aos='fade-right'] { transform: translate3d(-100px, 0, 0); }
+[data-aos='fade-left'] { transform: translate3d(100px, 0, 0); }
+[data-aos='fade-up'] { transform: translate3d(0, 100px, 0); }
+[data-aos='zoom-in'] { opacity: 0; transform: scale(0.6); }
+[data-aos='flip-right'] { backface-visibility: hidden; transform: perspective(2500px) rotateY(100deg); }
+[data-aos='flip-left'] { backface-visibility: hidden; transform: perspective(2500px) rotateY(-100deg); }
+[data-aos='slide-left'] { transform: translate3d(100%, 0, 0); }
+[data-aos='slide-right'] { transform: translate3d(-100%, 0, 0); }
+[data-aos].aos-animate { opacity: 1; transform: translateZ(0); }
+[data-aos^='flip'].aos-animate { transform: perspective(2500px) rotateY(0); }
+
+/* ---------- Hero slide text: staggered bounce-in on the active slide ---------- */
+.hero-anim {
+  position: relative;
+  top: 45px;
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.5, 2.2, 0.7, 0.7);
+}
+.is-active .hero-anim { top: 0; opacity: 1; }
+.is-active .hero-anim-1 { transition-delay: 0.4s; }
+.is-active .hero-anim-2 { transition-delay: 0.5s; }
+.is-active .hero-anim-3 { transition-delay: 0.6s; }
+
+/* Brush underline under hero headings */
+.hero-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -19px;
+  height: 12px;
+  width: 100%;
+  background: url('/images/hero-border.png') no-repeat;
+}
+
+/* Header logo with skewed navy panels */
+.logo-panel::after,
+.logo-panel::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 300px;
+  z-index: -1;
+  transform: skew(25deg);
+}
+.logo-panel::after { right: 0; width: 500%; background: #225378; }
+.logo-panel::before { right: -15px; width: 100%; background: rgba(34, 83, 120, 0.7); }
+@media (max-width: 350px) {
+  .logo-panel { padding-right: 170px !important; }
+  .logo-panel::after { transform: skew(0deg); }
+}
+
+/* Breadcrumb chevron separators */
+.crumb + .crumb { padding-left: 10px; }
+.crumb + .crumb::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 12px;
+  margin-right: 10px;
+  background: #f7a400;
+  clip-path: polygon(0 0, 30% 0, 100% 50%, 30% 100%, 0 100%, 70% 50%);
+}
+
+/* Careers list caret bullets */
+.caret-list li::before {
+  content: '';
+  position: absolute;
+  margin-left: -22px;
+  margin-top: 8px;
+  border-left: 8px solid #225378;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+/* Services-page enquiry inputs */
+.ghost-input {
+  @apply block w-full rounded border-2 border-white bg-transparent px-3 py-1.5 text-base font-normal text-white placeholder:text-white focus:outline-none focus:ring-4 focus:ring-white/30;
+}
+.ghost-input option { color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
