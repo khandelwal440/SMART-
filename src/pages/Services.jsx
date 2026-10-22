@@ -4,6 +4,7 @@ import { PlainField } from '../components/ContactForm.jsx';
 import { FormStatus, useForm } from '../components/forms.jsx';
 import { SERVICES, SERVICE_OPTIONS } from '../data/content.js';
 import { rules } from '../lib/validation.js';
+import { scrollToId } from '../lib/scrollToId.js';
 
 const schema = {
   name: rules.name,
@@ -66,6 +67,11 @@ export default function Services() {
             <li key={s.id} className="shrink-0">
               <a
                 href={`#${s.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.history.replaceState(null, '', `#${s.id}`);
+                  scrollToId(s.id);
+                }}
                 className="flex items-center gap-2 rounded-full border border-tag bg-tag/50 px-4 py-2 text-sm font-bold text-navy transition-all duration-300 hover:border-amber hover:bg-amber hover:text-white"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-navy text-[11px] text-white">0{i + 1}</span>

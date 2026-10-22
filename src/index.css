@@ -202,6 +202,14 @@
 }
 .ghost-input option { color: #000; }
 
+/* Hide sideways overflow (slide-in animations start off-screen) WITHOUT making
+   the element scrollable: `overflow-x: hidden` can still be scrolled by anchor
+   jumps, which shifted whole pages left. `clip` can't; `hidden` is the fallback. */
+.clip-x { overflow-x: hidden; }
+@supports (overflow-x: clip) {
+  .clip-x { overflow-x: clip; }
+}
+
 /* Gradient text accent */
 .text-gradient {
   background: linear-gradient(90deg, #225378, #2f7fb8, #f7a400, #225378);
