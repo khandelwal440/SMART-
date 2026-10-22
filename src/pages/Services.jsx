@@ -22,7 +22,7 @@ function EnquiryStrip() {
   });
   const field = 'ghost-input';
   return (
-    <section aria-label="Service enquiry" className="z-[1029] bg-amber py-[30px] lg:sticky lg:bottom-0">
+    <section aria-label="Service enquiry" className="border-t-2 border-gold bg-navy py-10">
       <div className="container">
         <form onSubmit={form.onSubmit} noValidate>
           <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 md:grid-cols-4">
@@ -44,7 +44,7 @@ function EnquiryStrip() {
             <button
               type="submit"
               disabled={form.status === 'submitting'}
-              className="mt-[23px] bg-white p-2 px-4 text-sm font-bold uppercase tracking-[0.02em] text-navy transition hover:bg-navy hover:text-white"
+              className="mt-[23px] rounded-full bg-gold px-8 py-3 text-sm font-bold uppercase tracking-[0.02em] text-navy transition hover:bg-white"
             >
               {form.status === 'submitting' ? 'Sending…' : 'Submit'}
             </button>
@@ -72,7 +72,7 @@ export default function Services() {
                   window.history.replaceState(null, '', `#${s.id}`);
                   scrollToId(s.id);
                 }}
-                className="flex items-center gap-2 rounded-full border border-tag bg-tag/50 px-4 py-2 text-sm font-bold text-navy transition-all duration-300 hover:border-amber hover:bg-amber hover:text-white"
+                className="flex items-center gap-2 rounded-full border border-tag bg-tag/50 px-4 py-2 text-sm font-bold text-navy transition-all duration-300 hover:border-gold hover:bg-gold hover:text-navy"
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-navy text-[11px] text-white">0{i + 1}</span>
                 {s.title}

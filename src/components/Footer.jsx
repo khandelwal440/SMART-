@@ -2,18 +2,18 @@ import { Link } from 'react-router-dom';
 import { CONTACT, FOOTER_NAV, REGIONS, SERVICES } from '../data/content.js';
 import { LinkedInIcon, WhatsAppIcon } from './Icons.jsx';
 
-const heading = 'mb-5 text-lg font-extrabold text-white after:mt-2 after:block after:h-[3px] after:w-10 after:rounded after:bg-amber after:content-[""]';
-const link = 'group inline-flex items-center gap-2 py-1 font-medium text-white/75 transition-colors hover:text-amber';
+const heading = 'mb-5 text-lg font-extrabold text-white after:mt-2 after:block after:h-[3px] after:w-10 after:rounded after:bg-gold after:content-[""]';
+const link = 'group inline-flex items-center gap-2 py-1 font-medium text-white/75 transition-colors hover:text-gold';
 
 function Dot() {
-  return <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber/70 transition-transform group-hover:scale-150" aria-hidden="true" />;
+  return <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold/70 transition-transform group-hover:scale-150" aria-hidden="true" />;
 }
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-navy text-white">
       <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-white/5" aria-hidden="true" />
-      <div className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-amber/10 blur-2xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-gold/10 blur-2xl" aria-hidden="true" />
 
       <div className="container relative grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1.2fr] lg:gap-8">
         <div>
@@ -23,7 +23,7 @@ export default function Footer() {
           <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed text-white/70">
             India’s leading Executive Search and HR Consultancy Firm, Offering Unmatched Skill Mapping Services.
           </p>
-          <p className="mt-3 text-xs font-bold uppercase tracking-[0.15em] text-amber">{REGIONS.join(' · ')}</p>
+          <p className="mt-3 text-xs font-bold uppercase tracking-[0.15em] text-gold">{REGIONS.join(' · ')}</p>
         </div>
 
         <nav aria-label="Footer">
@@ -60,17 +60,17 @@ export default function Footer() {
           <h2 className={heading}>Get In Touch</h2>
           <ul className="space-y-2 text-white/75">
             <li>
-              <a href={CONTACT.phoneHref} className="inline-block py-1.5 font-bold text-white transition hover:text-amber">
+              <a href={CONTACT.phoneHref} className="inline-block py-1.5 font-bold text-white transition hover:text-gold">
                 {CONTACT.phone}
               </a>
             </li>
             <li>
-              <a href={`mailto:${CONTACT.infoEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-amber">
+              <a href={`mailto:${CONTACT.infoEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-gold">
                 {CONTACT.infoEmail}
               </a>
             </li>
             <li>
-              <a href={`mailto:${CONTACT.jobsEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-amber">
+              <a href={`mailto:${CONTACT.jobsEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-gold">
                 {CONTACT.jobsEmail}
               </a>
             </li>
@@ -99,10 +99,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative bg-amber text-sm sm:text-base">
-        <div className="container flex flex-col items-center gap-1 py-4 text-center lg:flex-row lg:justify-between lg:text-left">
-          <span className="order-2 font-bold text-white lg:order-1">© SMARTANK. ALL RIGHTS RESERVED.</span>
-          <a href={CONTACT.credit} target="_blank" rel="noopener noreferrer" className="order-1 py-1 font-bold text-white hover:underline lg:order-2">
+      {/* darker bottom bar with a thin gold rule; white-on-gold text was hard to read */}
+      <div className="relative border-t border-gold/40 bg-[#071528] text-sm">
+        <div className="container flex flex-col items-center gap-1 py-5 text-center lg:flex-row lg:justify-between lg:text-left">
+          <span className="order-2 font-semibold tracking-wide text-white/70 lg:order-1">© SMARTANK. ALL RIGHTS RESERVED.</span>
+          <a href={CONTACT.credit} target="_blank" rel="noopener noreferrer" className="order-1 py-1 font-semibold text-gold-light hover:text-gold lg:order-2">
             Designed &amp; Developed by Web Creative Dreams
           </a>
         </div>

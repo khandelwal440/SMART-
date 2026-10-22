@@ -22,8 +22,8 @@ export default function Careers() {
           <ul className="mb-8 mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {CAREER_WHY.map((w, i) => (
               <Reveal as="li" aos="fade-up" key={w.title}>
-                <div className="group h-full rounded-2xl border border-tag bg-gradient-to-b from-white to-tag/50 p-6 transition-all duration-500 hover:-translate-y-2 hover:border-amber hover:shadow-[0_24px_45px_-22px_rgba(34,83,120,0.6)]">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white transition-all duration-500 group-hover:rotate-6 group-hover:bg-amber">
+                <div className="group h-full rounded-2xl border border-tag bg-gradient-to-b from-white to-tag/50 p-6 transition-all duration-500 hover:-translate-y-2 hover:border-gold hover:shadow-[0_24px_45px_-22px_rgba(11,31,58,0.6)]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white transition-all duration-500 group-hover:rotate-6 group-hover:bg-gold group-hover:text-navy">
                     <Icon name={WHY_ICONS[i]} className="h-6 w-6" />
                   </span>
                   <h4 className="mb-2 mt-5 text-xl font-extrabold text-navy">{w.title.replace(/:$/, '')}</h4>

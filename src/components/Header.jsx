@@ -4,7 +4,7 @@ import { CONTACT, NAV } from '../data/content.js';
 import { LinkedInIcon, WhatsAppIcon } from './Icons.jsx';
 
 const navLink =
-  'relative block px-4 py-2 text-navlink transition-colors hover:text-navy lg:px-3 xxl:px-4 after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-amber after:transition-transform after:duration-300 hover:after:scale-x-100';
+  'relative block px-4 py-2 text-navlink transition-colors hover:text-navy lg:px-3 xxl:px-4 after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100';
 const navActive = '!text-navy after:!scale-x-100';
 
 function DesktopDropdown({ item }) {
@@ -52,7 +52,7 @@ function DesktopDropdown({ item }) {
           open ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-2 opacity-0'
         }`}
       >
-        <ul className="min-w-[13rem] overflow-hidden rounded-xl border-t-[3px] border-amber bg-white py-2 shadow-[0_18px_40px_-12px_rgba(34,83,120,0.35)]">
+        <ul className="min-w-[13rem] overflow-hidden rounded-xl border-t-[3px] border-gold bg-white py-2 shadow-[0_18px_40px_-12px_rgba(11,31,58,0.35)]">
           {item.children.map((c, i) =>
             c.divider ? (
               <li key={`d${i}`}>
@@ -67,7 +67,7 @@ function DesktopDropdown({ item }) {
                     rel="noopener noreferrer"
                     className="block whitespace-nowrap px-5 py-2 font-medium text-[#212529] transition hover:bg-tag hover:pl-6 hover:text-navy"
                   >
-                    {c.label} <span className="text-xs text-amber">PDF ↗</span>
+                    {c.label} <span className="text-xs text-gold">PDF ↗</span>
                   </a>
                 ) : (
                   <Link
@@ -120,17 +120,14 @@ export default function Header() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
-  // Once scrolled, the logo must fit inside the header bar (55px mobile / 60px desktop);
-  // a hanging logo would cover headings and buttons scrolling underneath it.
-  const logoSize = sticky
-    ? 'h-[55px] w-[86px] lg:h-[60px] lg:w-[94px]'
-    :'h-[77px] w-[120px] sm:h-[96px] sm:w-[150px] lg:h-[117px] lg:w-[180px] xl:h-[160px] xl:w-[250px] xxl:h-[211px] xxl:w-[330px]';
+  // The logo always sits inside the bar (it used to hang below it and cover content).
+  const logoSize = sticky ? 'h-[46px] w-[72px]' : 'h-[52px] w-[81px] lg:h-[66px] lg:w-[103px]';
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-[1030] border-b-[3px] border-navy transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-[1030] transition-shadow duration-500 ${
         // no backdrop-filter here: it would trap the fixed mobile menu inside the header
-        sticky ? 'bg-white shadow-[0_10px_30px_-18px_rgba(34,83,120,0.6)]' : 'bg-white'
+        sticky ? 'shadow-[0_12px_30px_-18px_rgba(11,31,58,0.55)]' : ''
       }`}
     >
       <a
@@ -139,8 +136,39 @@ export default function Header() {
       >
         Skip to content
       </a>
-      <div className="relative mx-auto w-full px-3 lg:max-w-[960px] xl:max-w-[1140px] xxl:max-w-[1320px]">
-        <nav aria-label="Main" className="relative flex h-[55px] items-center justify-end lg:h-auto">
+
+      {/* Desktop top bar: contact details + socials; tucks away once you scroll */}
+      <div
+        className={`hidden overflow-hidden bg-navy text-[13px] text-white/75 transition-all duration-500 lg:block ${sticky ? 'max-h-0' : 'max-h-10'}`}
+      >
+        <div className="container flex h-10 items-center justify-between">
+          <div className="flex items-center gap-6">
+            <a href={CONTACT.phoneHref} className="flex items-center gap-2 py-2 transition hover:text-gold">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+              {CONTACT.phone}
+            </a>
+            <a href={`mailto:${CONTACT.infoEmail}`} className="py-2 transition hover:text-gold">
+              {CONTACT.infoEmail}
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-white/50">India · Singapore · Europe · Africa · UAE</span>
+            <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (opens in new tab)" className="-m-1.5 p-1.5 transition hover:text-gold">
+              <WhatsAppIcon className="h-4 w-4" />
+            </a>
+            <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)" className="-m-1.5 p-1.5 transition hover:text-gold">
+              <LinkedInIcon className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative border-b border-tag bg-white">
+      <div className="container">
+        <nav aria-label="Main" className={`relative flex items-center justify-between transition-all duration-500 ${sticky ? 'h-16' : 'h-16 lg:h-[88px]'}`}>
+          <Link to="/" aria-label="SmarTank home" className="relative z-[2] shrink-0">
+            <img src="/images/logo.jpg" alt="SmarTank Strategic Consultants" className={`rounded-lg shadow-[0_8px_20px_-10px_rgba(11,31,58,0.6)] transition-all duration-500 ${logoSize}`} />
+          </Link>
           {/* Mobile toggler: animated hamburger */}
           <button
             type="button"
@@ -160,7 +188,7 @@ export default function Header() {
           </button>
 
           {/* Desktop menu */}
-          <ul className={`hidden items-center justify-end transition-all duration-500 lg:flex ${sticky ? 'h-[60px]' : 'h-[90px]'}`}>
+          <ul className="hidden items-center justify-end lg:flex">
             {NAV.map((item) =>
               item.children ? (
                 <DesktopDropdown key={item.label} item={item} />
@@ -174,15 +202,11 @@ export default function Header() {
             )}
           </ul>
         </nav>
-
-        {/* z-[2] keeps the hanging logo above the scroll-progress bar */}
-        <Link to="/" className="logo-panel absolute left-3 top-0 z-[2] pr-8 lg:pr-10" aria-label="SmarTank home">
-          <img src="/images/logo.jpg" alt="SmarTank Strategic Consultants" className={`transition-all duration-500 ${logoSize}`} />
-        </Link>
       </div>
 
       {/* Scroll progress */}
-      <div className="absolute -bottom-[3px] left-0 z-[1] h-[3px] bg-gradient-to-r from-amber via-[#ffcc4d] to-amber" style={{ width: `${progress * 100}%` }} aria-hidden="true" />
+      <div className="absolute -bottom-px left-0 z-[1] h-[3px] bg-gradient-to-r from-gold via-gold-light to-gold" style={{ width: `${progress * 100}%` }} aria-hidden="true" />
+      </div>
 
       {/* Mobile full-screen menu */}
       <div
@@ -192,7 +216,7 @@ export default function Header() {
         }`}
         inert={open ? undefined : ''}
       >
-        <div className="pointer-events-none absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-amber/10 blur-2xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-gold/10 blur-2xl" aria-hidden="true" />
         <div className="flex min-h-full flex-col px-7 pb-8 pt-24">
           <ul className="space-y-1">
             {NAV.map((item, i) => (
@@ -210,21 +234,21 @@ export default function Header() {
                       className="flex w-full items-center justify-between py-3 text-left text-2xl font-bold text-white"
                     >
                       {item.label}
-                      <span className={`text-amber transition-transform duration-300 ${aboutOpen ? 'rotate-45' : ''}`} aria-hidden="true">
+                      <span className={`text-gold transition-transform duration-300 ${aboutOpen ? 'rotate-45' : ''}`} aria-hidden="true">
                         +
                       </span>
                     </button>
-                    <ul className={`grid overflow-hidden border-l-2 border-amber/60 pl-4 transition-all duration-300 ${aboutOpen ? 'mb-2 max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <ul className={`grid overflow-hidden border-l-2 border-gold/60 pl-4 transition-all duration-300 ${aboutOpen ? 'mb-2 max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
                       {item.children
                         .filter((c) => !c.divider)
                         .map((c) => (
                           <li key={c.label}>
                             {c.external ? (
-                              <a href={c.href} target="_blank" rel="noopener noreferrer" className="block py-2 text-base font-medium text-white/75 hover:text-amber">
+                              <a href={c.href} target="_blank" rel="noopener noreferrer" className="block py-2 text-base font-medium text-white/75 hover:text-gold">
                                 {c.label} ↗
                               </a>
                             ) : (
-                              <Link to={c.to} className="block py-2 text-base font-medium text-white/75 hover:text-amber">
+                              <Link to={c.to} className="block py-2 text-base font-medium text-white/75 hover:text-gold">
                                 {c.label}
                               </Link>
                             )}
@@ -237,7 +261,7 @@ export default function Header() {
                     to={item.to}
                     end={item.to === '/'}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 py-3 text-2xl font-bold transition-colors hover:text-amber ${isActive ? 'text-amber' : 'text-white'}`
+                      `flex items-center gap-3 py-3 text-2xl font-bold transition-colors hover:text-gold ${isActive ? 'text-gold' : 'text-white'}`
                     }
                   >
                     {item.label}

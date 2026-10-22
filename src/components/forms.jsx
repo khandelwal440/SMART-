@@ -76,7 +76,7 @@ export function Field({ label, name, as = 'input', form, required = true, childr
     <div className={className}>
       <label htmlFor={id} className="mb-1.5 block text-sm font-bold text-navy">
         {label}
-        {required && <span className="text-amber"> *</span>}
+        {required && <span className="text-gold"> *</span>}
       </label>
       <Tag {...common}>{children}</Tag>
       {err && (
@@ -97,7 +97,7 @@ export function FileField({ label, name, form, accept, hint }) {
     <div>
       <span className="mb-1.5 block text-sm font-bold text-navy">
         {label}
-        <span className="text-amber"> *</span>
+        <span className="text-gold"> *</span>
       </span>
       <label
         htmlFor={id}
@@ -105,7 +105,7 @@ export function FileField({ label, name, form, accept, hint }) {
           err ? 'border-red-300 bg-red-50/50' : 'border-[#ced4da]'
         }`}
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream text-amber">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream text-gold">
           <Icon name={file ? 'file' : 'upload'} />
         </span>
         <span className="min-w-0">

@@ -1,46 +1,44 @@
 import { Link } from 'react-router-dom';
 
 /**
- * Inner-page breadcrumb banner: background image, title, Home > Page trail
- * and the five floating breadcrumb shapes.
- * crumbs: [{ label, to? }] – Home is prepended automatically.
+ * Inner-page banner: deep navy with a soft gold glow, serif title and a gold
+ * breadcrumb. crumbs: [{ label, to? }] – Home is prepended automatically.
  */
 export default function PageBanner({ title, crumbs }) {
   const trail = [{ label: 'Home', to: '/' }, ...(crumbs || [{ label: title }])];
 
   return (
-    <section
-      className="relative z-[1] mt-[58px] overflow-hidden bg-cover pb-16 pt-24 max-sm:bg-[60%] sm:bg-[79%] sm:pb-[110px] sm:pt-[105px] lg:mt-[108px]"
-      style={{ backgroundImage: "url('/images/breadcrumb_bg.jpg')" }}
-    >
-      <div className="container">
-        <div className="lg:w-1/2">
-          <h1 className="mb-2.5 animate-pageIn text-[34px] font-bold leading-[1.15] text-navy sm:text-[42px] lg:text-[48px] lg:font-medium">{title}</h1>
-          <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center">
-              {trail.map((c, i) => {
-                const last = i === trail.length - 1;
-                return (
-                  <li key={c.label} className="crumb flex items-center text-base text-amber">
-                    {c.to && !last ? (
-                      <Link to={c.to} className="text-navy transition-colors duration-300 hover:text-amber">
-                        {c.label}
-                      </Link>
-                    ) : (
-                      <span aria-current="page">{c.label}</span>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
-        </div>
-      </div>
-      <div aria-hidden="true">
-        <img src="/images/breadcrumb_shape01.png" alt="" className="absolute left-1/2 top-[14%] -z-10" />
-        <img src="/images/breadcrumb_shape03.png" alt="" className="absolute bottom-0 right-0 -z-10 m-auto lg:left-0" />
-        <img src="/images/breadcrumb_shape04.png" alt="" className="absolute right-[42%] top-0 -z-10" />
-        <img src="/images/breadcrumb_shape05.png" alt="" className="absolute right-1/4 top-[15%] -z-10 animate-bob4" />
+    <section className="relative z-[1] overflow-hidden bg-navy py-14 text-white sm:py-20">
+      {/* decoration */}
+      <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gold/20 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/4 h-72 w-72 rounded-full bg-navy-2 blur-3xl" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(#E8CB6A_1px,transparent_1px)] [background-size:22px_22px]"
+        aria-hidden="true"
+      />
+      <div className="pointer-events-none absolute bottom-0 right-[8%] hidden h-40 w-40 rounded-t-full border-[14px] border-b-0 border-gold/30 md:block" aria-hidden="true" />
+
+      <div className="container relative">
+        <nav aria-label="Breadcrumb" className="mb-4">
+          <ol className="flex flex-wrap items-center text-sm font-semibold">
+            {trail.map((c, i) => {
+              const last = i === trail.length - 1;
+              return (
+                <li key={c.label} className="crumb flex items-center text-gold">
+                  {c.to && !last ? (
+                    <Link to={c.to} className="inline-block py-1 text-white/70 transition-colors duration-300 hover:text-gold">
+                      {c.label}
+                    </Link>
+                  ) : (
+                    <span aria-current="page">{c.label}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+        <h1 className="mb-0 animate-pageIn text-[34px] leading-[1.1] text-white sm:text-[46px] lg:text-[56px]">{title}</h1>
+        <span className="mt-5 block h-1 w-20 rounded-full bg-gradient-to-r from-gold to-gold-light" aria-hidden="true" />
       </div>
     </section>
   );

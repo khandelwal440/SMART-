@@ -2,17 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base typography mirrors the Bootstrap 5 defaults smartankbiz.com is built on. */
+/* Navy + gold design system: ivory page, serif display headings, sans body. */
 @layer base {
   html { scroll-behavior: smooth; }
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-cream font-sans text-ink antialiased;
     font-size: 16px;
-    font-weight: 600;
-    line-height: 1.5;
+    font-weight: 500;
+    line-height: 1.65;
     overflow-x: hidden;
   }
-  h1, h2, h3, h4, h5, h6 { font-weight: 500; line-height: 1.2; margin-bottom: 0.5rem; }
+  h1, h2, h3, h4, h5, h6 { @apply font-display text-navy; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  ::selection { background: #C9A227; color: #0B1F3A; }
   h1 { font-size: calc(1.375rem + 1.5vw); }
   h2 { font-size: calc(1.325rem + 0.9vw); }
   h3 { font-size: calc(1.3rem + 0.6vw); }
@@ -26,13 +27,13 @@
     h4 { font-size: 1.5rem; }
   }
   p { margin-bottom: 1rem; }
-  :focus-visible { outline: 2px solid #f7a400; outline-offset: 2px; }
+  :focus-visible { outline: 2px solid #C9A227; outline-offset: 2px; }
 }
 
 @layer components {
-  /* Amber pill with a navy circle that fills the button on hover */
+  /* Gold pill (navy text) with a navy circle that fills the button on hover */
   .st-btn {
-    @apply relative isolate inline-flex cursor-pointer select-none items-center whitespace-nowrap rounded-[30px] bg-amber text-sm font-bold uppercase leading-none text-white transition-all duration-300;
+    @apply relative isolate inline-flex cursor-pointer select-none items-center whitespace-nowrap rounded-[30px] bg-gold font-sans text-sm font-bold uppercase leading-none text-navy transition-all duration-300 hover:text-white;
     letter-spacing: 0.02em;
     padding: 18px 18px 18px 22px;
   }
@@ -48,12 +49,12 @@
     transition: left 0.6s ease, opacity 0.2s;
   }
   .st-btn:hover::after { left: 120%; opacity: 1; }
-  .st-btn { overflow: hidden; box-shadow: 0 10px 24px -12px rgba(247, 164, 0, 0.8); }
-  .st-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(34, 83, 120, 0.8); }
+  .st-btn { overflow: hidden; box-shadow: 0 10px 24px -12px rgba(201, 162, 39, 0.8); }
+  .st-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(11, 31, 58, 0.8); }
   .st-btn:disabled { @apply cursor-not-allowed opacity-70; }
 
   .head {
-    @apply font-extrabold text-navy;
+    @apply font-display font-bold text-navy;
     font-size: 22px;
     line-height: 30px;
   }
@@ -63,7 +64,7 @@
   @media (min-width: 1200px) { .head { font-size: 44px; line-height: 55px; } }
 
   .head-tag {
-    @apply mb-[15px] inline-flex items-center gap-2 rounded-full bg-tag font-extrabold uppercase text-navy;
+    @apply mb-[15px] inline-flex items-center gap-2 rounded-full border border-gold/40 bg-tag font-sans font-extrabold uppercase text-navy;
     font-size: 13px;
     letter-spacing: 0.1em;
     padding: 4px 13px;
@@ -72,13 +73,13 @@
   /* pulsing amber dot in front of every section tag */
   .head-tag::before {
     content: '';
-    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-amber;
-    box-shadow: 0 0 0 0 rgba(247, 164, 0, 0.7);
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-gold;
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.7);
     animation: tagPulse 2s infinite;
   }
   @keyframes tagPulse {
-    70% { box-shadow: 0 0 0 7px rgba(247, 164, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(247, 164, 0, 0); }
+    70% { box-shadow: 0 0 0 7px rgba(201, 162, 39, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0); }
   }
 
   /* lift + glow on interactive cards */
@@ -87,12 +88,12 @@
   }
   .lift:hover {
     transform: translateY(-8px);
-    filter: drop-shadow(0 22px 28px rgba(34, 83, 120, 0.22));
+    filter: drop-shadow(0 22px 28px rgba(11, 31, 58, 0.22));
   }
 
-  /* Bootstrap .form-control / .form-select look */
+  /* Form fields: soft ivory fill, gold focus ring */
   .form-control {
-    @apply block w-full rounded border border-[#ced4da] bg-white px-3 py-1.5 text-base font-normal text-[#212529] transition placeholder:text-[#6c757d] focus:border-[#86b7fe] focus:outline-none focus:ring-4 focus:ring-[#0d6efd]/25;
+    @apply block w-full rounded-xl border border-[#E4DCC8] bg-cream px-4 py-1.5 text-base font-normal text-navy transition placeholder:text-[#8A92A0] focus:border-gold focus:bg-white focus:outline-none focus:ring-4 focus:ring-gold/20;
     line-height: 2.3;
   }
   .form-control.is-invalid { @apply border-red-500 focus:ring-red-500/25; }
@@ -169,8 +170,9 @@
   z-index: -1;
   transform: skew(25deg);
 }
-.logo-panel::after { right: 0; width: 500%; background: #225378; }
-.logo-panel::before { right: -15px; width: 100%; background: rgba(34, 83, 120, 0.7); }
+/* panel uses the logo image's own navy so the JPG blends in; gold stripe on the slanted edge */
+.logo-panel::after { right: 0; width: 500%; background: #24537A; }
+.logo-panel::before { right: -10px; width: 100%; background: #C9A227; }
 @media (max-width: 350px) {
   .logo-panel { padding-right: 170px !important; }
   .logo-panel::after { transform: skew(0deg); }
@@ -184,7 +186,7 @@
   width: 8px;
   height: 12px;
   margin-right: 10px;
-  background: #f7a400;
+  background: #C9A227;
   clip-path: polygon(0 0, 30% 0, 100% 50%, 30% 100%, 0 100%, 70% 50%);
 }
 
@@ -194,7 +196,7 @@
   position: absolute;
   margin-left: -22px;
   margin-top: 8px;
-  border-left: 8px solid #225378;
+  border-left: 8px solid #0B1F3A;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
 }
@@ -215,7 +217,7 @@
 
 /* Gradient text accent */
 .text-gradient {
-  background: linear-gradient(90deg, #225378, #2f7fb8, #f7a400, #225378);
+  background: linear-gradient(90deg, #0B1F3A, #2f7fb8, #C9A227, #0B1F3A);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;

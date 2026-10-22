@@ -27,6 +27,8 @@ export default function Layout() {
     <>
       <Preloader />
       <Header />
+      {/* reserves the fixed header's height (64px bar on phones; 40px top bar + 88px bar on desktop) */}
+      <div className="h-[65px] lg:h-[129px]" aria-hidden="true" />
       <main id="main" tabIndex={-1} className="clip-x outline-none">
         {/* keyed by path so every page fades up on navigation */}
         <div key={pathname} className="animate-pageIn">

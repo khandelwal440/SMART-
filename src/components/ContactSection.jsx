@@ -1,5 +1,6 @@
 import { CONTACT } from '../data/content.js';
 import ContactForm from './ContactForm.jsx';
+import { LinkedInIcon, WhatsAppIcon } from './Icons.jsx';
 
 function PhoneIcon({ className }) {
   return (
@@ -9,72 +10,94 @@ function PhoneIcon({ className }) {
   );
 }
 
-/** Image + phone pill on the left, floating "Get In Touch" form on the right. */
-export default function ContactSection({ formName = 'home-callback', className = 'pt-14 lg:pt-[118px]' }) {
+function MailIcon({ className }) {
   return (
-    <section className={`relative overflow-hidden pb-16 lg:pb-[217px] ${className}`}>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </svg>
+  );
+}
+
+/** Navy contact panel (photo, phone, emails, socials) beside the "Get In Touch" form card. */
+export default function ContactSection({ formName = 'home-callback', className = 'py-16 sm:py-24' }) {
+  const rows = [
+    { icon: <PhoneIcon className="h-4 w-4" />, label: 'Call us anytime', value: CONTACT.phone, href: CONTACT.phoneHref },
+    { icon: <MailIcon className="h-4 w-4" />, label: 'General enquiries', value: CONTACT.infoEmail, href: `mailto:${CONTACT.infoEmail}` },
+    { icon: <MailIcon className="h-4 w-4" />, label: 'Careers', value: CONTACT.jobsEmail, href: `mailto:${CONTACT.jobsEmail}` },
+  ];
+
+  return (
+    <section className={`relative ${className}`}>
       <div className="container">
-        <div className="flex flex-col items-center lg:flex-row">
-          <div className="w-full lg:w-7/12">
+        <div className="grid overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_80px_-40px_rgba(11,31,58,0.55)] lg:grid-cols-[0.9fr_1.1fr]">
+          {/* info panel */}
+          <div className="relative overflow-hidden bg-navy p-7 text-white sm:p-10">
+            <img
+              src="/images/contact.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-luminosity"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-navy/70 to-navy" aria-hidden="true" />
+            <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-gold/20 blur-3xl" aria-hidden="true" />
+
             <div className="relative">
-              <img
-                src="/images/contact.jpg"
-                alt="SmarTank consultant on a call"
-                className="w-full rounded-2xl object-cover max-sm:aspect-[4/3] lg:w-auto lg:rounded-none"
-                loading="lazy"
-              />
+              <span className="head-tag !border-gold/40 !bg-white/5 !text-gold-light">Contact Us</span>
+              <h2 className="mb-4 text-[30px] leading-tight text-white sm:text-[38px]">
+                Let’s talk about your <em className="italic text-gold">talent needs</em>
+              </h2>
+              <p className="mb-8 max-w-sm text-white/70">Request a call back and our team will reach out to discuss your requirement.</p>
 
-              {/* sm+: glass pill on the photo, as on the original site */}
-              <div className="absolute bottom-[10%] left-[10%] hidden items-center justify-center rounded-[40px] border-2 border-white/25 bg-white/20 py-[18px] pr-10 backdrop-blur-sm sm:flex">
-                <div className="relative z-[1] mr-[30px]">
-                  <span className="absolute -left-[61%] -top-[88%] -z-10 h-[103px] w-[103px] animate-pulse rounded-full border-2 border-amber" aria-hidden="true" />
-                  <span className="absolute -left-[39%] -top-[60%] -z-10 h-20 w-20 rounded-full bg-amber" aria-hidden="true" />
-                  <span className="mr-5 flex h-[35px] w-[35px] items-center justify-center rounded-full border-2 border-white text-white">
-                    <PhoneIcon className="h-[13px] w-[13px]" />
-                  </span>
-                </div>
-                <h3 className="m-0 text-2xl font-extrabold text-white">
-                  <a href={CONTACT.phoneHref} className="text-white">
-                    {CONTACT.phone}
-                  </a>
-                </h3>
-              </div>
+              <ul className="space-y-3">
+                {rows.map((r) => (
+                  <li key={r.value}>
+                    <a
+                      href={r.href}
+                      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-gold hover:bg-white/10"
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-navy">{r.icon}</span>
+                      <span className="min-w-0">
+                        <span className="block text-xs font-bold uppercase tracking-[0.15em] text-white/60">{r.label}</span>
+                        <span className="block break-all text-base font-bold text-white transition group-hover:text-gold sm:text-lg">{r.value}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
 
-              <div className="absolute bottom-[21%] left-[6%] hidden animate-bob sm:block" aria-hidden="true">
-                <img src="/images/contact_shapes.png" alt="" />
+              <div className="mt-8 flex items-center gap-3">
+                <span className="text-sm font-semibold text-white/70">Connect with us on</span>
+                <a
+                  href={CONTACT.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp (opens in new tab)"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#25D366]"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                </a>
+                <a
+                  href={CONTACT.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn (opens in new tab)"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-[#0A66C2]"
+                >
+                  <LinkedInIcon className="h-5 w-5" />
+                </a>
               </div>
             </div>
-
-            {/* phones: solid call card that overlaps the photo, always readable */}
-            <a
-              href={CONTACT.phoneHref}
-              className="relative z-[1] mx-4 -mt-10 flex items-center gap-4 rounded-2xl bg-navy p-4 text-white shadow-[0_18px_40px_-16px_rgba(34,83,120,0.8)] sm:hidden"
-            >
-              <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber">
-                <span className="absolute inset-0 animate-ping rounded-full bg-amber/60" aria-hidden="true" />
-                <PhoneIcon className="relative h-5 w-5" />
-              </span>
-              <span>
-                <span className="block text-xs font-bold uppercase tracking-[0.15em] text-white/70">Call us anytime</span>
-                <span className="block text-xl font-extrabold">{CONTACT.phone}</span>
-              </span>
-            </a>
           </div>
 
-          <div className="mt-8 w-full lg:mt-0 lg:w-5/12">
-            <div className="relative rounded-2xl bg-white px-5 pb-10 pt-8 [filter:drop-shadow(0px_5px_40px_rgba(189,202,202,0.45))] sm:px-10 sm:pb-[60px] sm:pt-11 lg:top-[100px] lg:rounded-none">
-              <h2 className="head-tag">CONTACT US</h2>
-              <h3 className="head !text-[26px] !leading-[34px] sm:!text-[30px] xl:!leading-[55px]">Get In Touch with SMARTANK</h3>
-              <ContactForm formName={formName} />
-            </div>
+          {/* form */}
+          <div className="p-7 sm:p-10 lg:p-12">
+            <span className="head-tag">Request a Call Back</span>
+            <h3 className="head mb-6 !text-[28px] !leading-[36px] sm:!text-[34px] sm:!leading-[42px]">Get In Touch with SMARTANK</h3>
+            <ContactForm formName={formName} />
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-[4%] left-[7%] -z-10 hidden animate-dance sm:block" aria-hidden="true">
-        <img src="/images/animate.png" alt="" />
-      </div>
-      <div className="absolute bottom-[3%] right-[9%] -z-10 hidden animate-dance2 sm:block" aria-hidden="true">
-        <img src="/images/service_shpe2.png" alt="" />
       </div>
     </section>
   );

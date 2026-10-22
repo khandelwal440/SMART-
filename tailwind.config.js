@@ -10,16 +10,21 @@ export default {
       screens: { sm: '540px', md: '720px', lg: '960px', xl: '1140px', xxl: '1320px' },
     },
     extend: {
+      // Navy + gold design system
       colors: {
-        navy: '#225378',
-        amber: '#f7a400',
-        tag: '#dcf0ff',
-        ink: '#757676',
-        navlink: '#7c7878',
-        cream: '#fef6e6',
+        navy: '#0B1F3A', // primary: headings, dark sections
+        'navy-2': '#13305A', // lighter navy for gradients and hovers
+        brand: '#24537A', // the logo's own navy, used behind the logo
+        gold: '#C9A227', // accent: buttons, highlights
+        'gold-light': '#E8CB6A',
+        tag: '#F4EBD3', // soft gold tint for pills and borders
+        ink: '#5B6577', // body text
+        navlink: '#3A4658',
+        cream: '#FBF8F2', // ivory page background
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       keyframes: {
         rotateme: { from: { transform: 'rotate(0deg)' }, to: { transform: 'rotate(360deg)' } },

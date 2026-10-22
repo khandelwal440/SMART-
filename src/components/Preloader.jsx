@@ -31,11 +31,11 @@ export default function Preloader() {
         <img src="/images/preloader.png" alt="" className="relative" />
       </div>
       <div
-        className="fixed top-0 z-[2] h-full w-1/2 bg-amber transition-all delay-[1.4s] duration-1000"
+        className="fixed top-0 z-[2] h-full w-1/2 bg-gold transition-all delay-[1.4s] duration-1000"
         style={{ left: loaded ? '-100%' : 0 }}
       />
       <div
-        className="fixed top-0 z-[2] h-full w-1/2 bg-amber transition-all delay-[1.4s] duration-1000"
+        className="fixed top-0 z-[2] h-full w-1/2 bg-gold transition-all delay-[1.4s] duration-1000"
         style={{ right: loaded ? '-100%' : 0 }}
       />
     </div>

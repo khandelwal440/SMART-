@@ -28,14 +28,14 @@ export default function Leadership() {
                 key={b.title}
                 className={`lg:col-span-2 ${i === 3 ? 'lg:col-start-2' : ''} ${i === 4 ? 'md:col-span-2 md:mx-auto md:w-1/2 lg:mx-0 lg:w-auto' : ''}`}
               >
-                <div className="group relative h-full overflow-hidden rounded-3xl border border-tag bg-white p-7 transition-all duration-500 hover:-translate-y-2 hover:border-transparent hover:bg-navy hover:shadow-[0_30px_60px_-25px_rgba(34,83,120,0.7)]">
+                <div className="group relative h-full overflow-hidden rounded-3xl border border-tag bg-white p-7 transition-all duration-500 hover:-translate-y-2 hover:border-transparent hover:bg-navy hover:shadow-[0_30px_60px_-25px_rgba(11,31,58,0.7)]">
                 <span
                   className="pointer-events-none absolute -right-3 -top-6 text-[110px] font-extrabold leading-none text-tag/70 transition-colors duration-500 group-hover:text-white/10"
                   aria-hidden="true"
                 >
                   0{i + 1}
                 </span>
-                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-amber text-white shadow-[0_12px_24px_-10px_rgba(247,164,0,0.9)] transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-navy shadow-[0_12px_24px_-10px_rgba(201,162,39,0.9)] transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
                   <Icon name={ICONS[i]} className="h-7 w-7" />
                 </span>
                 <h3 className="relative mb-3 mt-6 text-2xl font-extrabold text-navy transition-colors duration-500 group-hover:text-white">{b.title}</h3>

@@ -37,12 +37,12 @@ export default function BackToTop() {
           ref={pathRef}
           d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
           fill="none"
-          stroke="#225378"
+          stroke="#0B1F3A"
           strokeWidth="4"
           style={{ strokeDasharray: `${PATH_LENGTH} ${PATH_LENGTH}`, strokeDashoffset: PATH_LENGTH, transition: 'stroke-dashoffset 10ms linear' }}
         />
       </svg>
-      <svg viewBox="0 0 320 512" className="relative h-[18px] w-[18px] text-[#0c6e6d] group-hover:text-navy" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 320 512" className="relative h-[18px] w-[18px] text-[#0B1F3A] group-hover:text-navy" fill="currentColor" aria-hidden="true">
         <path d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z" />
       </svg>
     </button>

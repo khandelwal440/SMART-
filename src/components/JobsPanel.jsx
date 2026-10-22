@@ -20,8 +20,8 @@ export default function JobsPanel({ jobs, onApply, footer, className = '' }) {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {jobs.map((j, i) => (
             <Reveal as="li" aos="flip-left" key={`${j.title}-${i}`}>
-              <div className="group flex h-full items-baseline rounded-[20px] border border-white/10 bg-[linear-gradient(107.98deg,rgba(255,255,255,0.1)_37.75%,rgba(255,255,255,0)_190.53%)] p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-amber hover:bg-white hover:shadow-[0_20px_45px_-15px_rgba(247,164,0,0.55)]">
-                <ArrowRight className="mr-[15px] h-4 w-4 shrink-0 text-amber transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#171717]" />
+              <div className="group flex h-full items-baseline rounded-[20px] border border-white/10 bg-[linear-gradient(107.98deg,rgba(255,255,255,0.1)_37.75%,rgba(255,255,255,0)_190.53%)] p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold hover:bg-white hover:shadow-[0_20px_45px_-15px_rgba(201,162,39,0.55)]">
+                <ArrowRight className="mr-[15px] h-4 w-4 shrink-0 text-gold transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#171717]" />
                 <div className="font-extrabold text-white group-hover:text-[#171717] max-sm:block">
                   <p className="mb-0">
                     {j.title}
@@ -32,13 +32,13 @@ export default function JobsPanel({ jobs, onApply, footer, className = '' }) {
                       </>
                     )}
                     <br />
-                    <span className="text-amber group-hover:text-black">Positions open for : {j.locations.join(' | ')}</span>
+                    <span className="text-gold group-hover:text-black">Positions open for : {j.locations.join(' | ')}</span>
                   </p>
                   {onApply && (
                     <button
                       type="button"
                       onClick={() => onApply(j)}
-                      className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-navy"
+                      className="mt-3 inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-navy transition hover:bg-white"
                     >
                       Apply Now
                     </button>
