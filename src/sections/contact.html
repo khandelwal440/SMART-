@@ -1,0 +1,35 @@
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <svg class="topo bgtopo" id="topoContact" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true"></svg>
+  <div class="wrap">
+    <div class="contact-in">
+      <div data-reveal-content="component">
+        <p class="eyebrow" data-reveal-content="fade">Contact us</p>
+        <h2 data-reveal-content="heading">Get in touch with SmarTank</h2>
+        <p style="color:rgba(255,255,255,.66);max-width:440px" data-reveal-content="paragraph">Tell us what you need and our team will call you back to discuss the right talent and HR strategy for your organisation.</p>
+        <div class="lines" data-reveal-content="fade">
+          <a href="tel:+919167799779"><small>Call</small>+91 91677 99779</a>
+          <a href="mailto:jobs@smartankbiz.com"><small>Resumes</small>jobs@smartankbiz.com</a>
+          <a href="https://wa.link/wdrylz" target="_blank" rel="noopener"><small>WhatsApp</small>Chat with us ↗</a>
+        </div>
+      </div>
+      <form class="cb" id="cbForm" novalidate data-reveal-content="component">
+        <label>Full name<input name="name" required autocomplete="name"></label>
+        <label>Phone<input name="phone" type="tel" required autocomplete="tel" pattern="[+0-9 ()-]{7,}"></label>
+        <label class="full">Email<input name="email" type="email" autocomplete="email"></label>
+        <label class="full">Service
+          <select name="service" required>
+            <option value="">Select a service</option>
+            <option>Executive Talent Acquisition</option>
+            <option>Performance Management System</option>
+            <option>HR Business Partnering &amp; Consultation</option>
+            <option>HR Transformation &amp; Leadership Development</option>
+          </select>
+        </label>
+        <label class="full">Message<textarea name="msg"></textarea></label>
+        <button class="btn btn-orange full" type="submit"><span class="lbl" data-button-animate-chars>Request call back</span> <span class="arr">→</span></button>
+        <p class="msg" id="cbMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- start downloading the animation libraries immediately -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js">
+<script>
+/* Hide the hero's animated parts until GSAP takes over, so the finished layout never
+   flashes before the intro. If the libraries fail to load, show everything after 3s. */
+document.documentElement.classList.add('js');
+setTimeout(function(){if(!window.gsap)document.documentElement.classList.add('fallback')},3000);
+</script>
