@@ -149,9 +149,11 @@ html.js:not(.fallback) .hero-tr .p2,html.js:not(.fallback) .hero-tr .p3{opacity:
 .hero-bl{position:absolute;left:0;top:58%;bottom:0;width:66.666%;background:var(--bg);z-index:3;padding:36px var(--gut);display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--line)}
 .hero-bl .eyebrow{color:var(--orange);margin-bottom:16px}
 .hero-bl h1{max-width:900px}
-.hero-bl .m-cta{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
+.hero-bl .m-cta{display:none}
 .hero-bl .m-cta p{color:var(--muted);max-width:400px}
-.hero-bl .m-cta .row{display:flex;gap:8px;flex-wrap:wrap}
+.hero-bl .m-cta .row,.hero-br .row{display:flex;gap:8px;flex-wrap:wrap}
+.hero-br{position:absolute;right:0;top:58%;bottom:0;width:33.333%;z-index:3;padding:36px var(--gut) 36px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:18px}
+.hero-br p{color:var(--muted);max-width:300px}
 
 /* ---------- regions (trusted) ---------- */
 .regions{padding:72px 0 0}
@@ -408,7 +410,8 @@ footer{background:var(--navy);color:#fff}
   .hero-tr{width:100%;bottom:50%;padding:0 var(--gut) 24px}
   .hero-anchors{display:none}
   .hero-bl{width:100%;top:50%;border-right:0;padding:28px var(--gut) 28px;justify-content:flex-start;gap:24px}
-  .hero-bl .m-cta{margin-top:auto;flex-direction:column;align-items:flex-start;gap:16px}
+  .hero-bl .m-cta{display:flex;margin-top:auto;flex-direction:column;align-items:flex-start;gap:16px}
+  .hero-br{display:none}
   .steps{grid-template-columns:1fr}
   .steps-left{border-right:0}
   .steps-right{display:none}
@@ -538,12 +541,21 @@ footer{background:var(--navy);color:#fff}
         <p class="eyebrow">We are expert in this field</p>
         <h1 data-home-hero-heading>Strategic solutions for workforce excellence</h1>
       </div>
-      <div class="m-cta" data-home-hero-fade>
+      <!-- phones: intro + buttons sit under the heading -->
+      <div class="m-cta">
         <p>India's leading Executive Search and HR Consultancy firm, offering unmatched skill mapping services.</p>
         <div class="row">
           <a class="btn btn-orange" href="#services"><span class="lbl" data-button-animate-chars>Our services</span> <span class="arr">→</span></a>
           <a class="btn btn-outline" href="#about"><span class="lbl" data-button-animate-chars>About us</span></a>
         </div>
+      </div>
+    </div>
+    <!-- desktop: intro + buttons in the bottom-right panel; the scroll-drawn lines run past its right edge -->
+    <div class="hero-br" data-home-hero-fade>
+      <p>India's leading Executive Search and HR Consultancy firm, offering unmatched skill mapping services.</p>
+      <div class="row">
+        <a class="btn btn-orange" href="#services"><span class="lbl" data-button-animate-chars>Our services</span> <span class="arr">→</span></a>
+        <a class="btn btn-outline" href="#about"><span class="lbl" data-button-animate-chars>About us</span></a>
       </div>
     </div>
   </div>
@@ -954,12 +966,13 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke,vert}={}
   const add=(d,cls)=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',d);p.setAttribute('class',cls);if(stroke&&cls!=='faint')p.style.stroke=stroke;svg.appendChild(p);return p};
   for(let i=0;i<faint;i++)add(line(i*H/faint*1.3-120,40+r()*30,i),'faint');
   /* vertical bundle: contours that drop down from the hero's middle line (bottom-right panel) */
-  const vline=(bx,amp,off,y0)=>{const pts=[];for(let y=y0;y<=H+60;y+=48){const k=(y-y0)/(H-y0);pts.push([bx+amp*k*Math.sin(y/120+ph[0]+off*.15)+amp*.5*Math.sin(y/70+ph[1]+off*.2)-k*k*90,y])}
+  const vline=(bx,amp,off,y0)=>{const pts=[];for(let y=y0;y<=H+60;y+=48){const k=(y-y0)/(H-y0);pts.push([bx+amp*k*Math.sin(y/120+ph[0]+off*.15)+amp*.5*Math.sin(y/70+ph[1]+off*.2)+k*k*(vert.drift??-90),y])}
     let d=`M${pts[0][0].toFixed(1)} ${pts[0][1]}`;for(let i=1;i<pts.length-1;i++){const mx=(pts[i][0]+pts[i+1][0])/2,my=(pts[i][1]+pts[i+1][1])/2;d+=`Q${pts[i][0].toFixed(1)} ${pts[i][1]} ${mx.toFixed(1)} ${my}`}
     const l=pts[pts.length-1];return d+`L${l[0].toFixed(1)} ${l[1]}`};
   if(vert){
-    for(let i=0;i<vert.n;i++)add(vline(vert.x+i*18,70,i*.4,vert.y0+i*10),'dk');
-    add(vline(vert.x+vert.n*18+14,74,2.2,vert.y0+vert.n*10),'thick');
+    const A=vert.amp??70;
+    for(let i=0;i<vert.n;i++)add(vline(vert.x+i*18,A,i*.4,vert.y0+i*10),'dk');
+    add(vline(vert.x+vert.n*18+14,A+4,2.2,vert.y0+vert.n*10),'thick');
   }
   if(bundle){
     for(let i=0;i<bundle;i++)add(line(baseY+i*16,60,i*.4),'dk');
@@ -970,7 +983,8 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke,vert}={}
 topo($('#topo0'),{faint:14,bundle:5,seed:3,baseY:220});
 /* scroll-drawn layer: on desktop it drops into the open bottom-right panel; on phones the
    bottom half is the heading panel, so it runs across the visible top half instead */
-if(innerWidth>991)topo($('#topo1'),{vert:{x:1080,y0:520,n:4},seed:12});
+/* desktop: lines drop down along the right edge, past the intro text and buttons in that panel */
+if(innerWidth>991)topo($('#topo1'),{vert:{x:1310,y0:520,n:4,amp:34,drift:50},seed:12});
 else{$('#topo1').setAttribute('preserveAspectRatio','xMidYMin slice');topo($('#topo1'),{bundle:4,seed:12,baseY:110})}
 topo($('#topo2'),{trail:true,seed:4});
 topo($('#topoAbout'),{faint:10,seed:7});
