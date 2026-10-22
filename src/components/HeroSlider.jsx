@@ -9,6 +9,7 @@ const FADE = 1000; // slick speed
 export default function HeroSlider({ slides = HERO_SLIDES }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 }); // -1..1 mouse position for shape parallax
   const dragX = useRef(null);
   const count = slides.length;
   const go = useCallback((i) => setActive(((i % count) + count) % count), [count]);
@@ -34,7 +35,14 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
       aria-roledescription="carousel"
       aria-label="Highlights"
       onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseLeave={() => {
+        setPaused(false);
+        setTilt({ x: 0, y: 0 });
+      }}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        setTilt({ x: ((e.clientX - r.left) / r.width) * 2 - 1, y: ((e.clientY - r.top) / r.height) * 2 - 1 });
+      }}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
@@ -86,10 +94,16 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
                     Our Services
                   </ArrowButton>
                 </div>
-                <div className="relative top-[18px] z-[1] lg:w-[37.7%] lg:shrink-0">
+                <div className="relative top-[18px] z-[1] mx-auto mt-8 max-w-[420px] lg:mt-0 lg:w-[37.7%] lg:max-w-none lg:shrink-0">
                   <img src={s.image} alt={s.alt} className="w-[95%]" draggable="false" loading={i === 0 ? 'eager' : 'lazy'} />
-                  <div className="absolute top-[14%] -z-10 animate-bob4" aria-hidden="true">
-                    <img src="/images/hero3_dot_shape.png" alt="" className="w-full" draggable="false" />
+                  <div
+                    className="absolute top-[14%] -z-10 transition-transform duration-300 ease-out"
+                    style={{ transform: `translate(${tilt.x * -18}px, ${tilt.y * -12}px)` }}
+                    aria-hidden="true"
+                  >
+                    <div className="animate-bob4">
+                      <img src="/images/hero3_dot_shape.png" alt="" className="w-full" draggable="false" />
+                    </div>
                   </div>
                   <div className="absolute bottom-0 -z-10 animate-moveleft lg:-ml-[110px]" aria-hidden="true">
                     <img src="/images/half-circle.png" alt="" draggable="false" />
@@ -106,20 +120,31 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
       <div className="container pointer-events-none absolute inset-x-0 bottom-[35px] z-[2] max-sm:static max-sm:pb-4">
         <ul className="pointer-events-auto flex gap-1">
           {slides.map((s, i) => (
-            <li key={s.title} className="h-2.5 w-2.5">
+            <li key={s.title}>
+              {/* 24px hit area around the 10px ring; the active ring stretches into a pill */}
               <button
                 type="button"
                 aria-label={`${i + 1} of ${count}`}
                 aria-current={i === active}
                 onClick={() => go(i)}
-                className={`block h-2.5 w-2.5 rounded-full border-2 border-navy transition-colors ${i === active ? 'bg-navy' : 'bg-transparent'}`}
-              />
+                className="-mx-1.5 flex h-6 min-w-6 items-center justify-center px-1.5"
+              >
+                <span
+                  className={`block h-2.5 rounded-full border-2 border-navy transition-all duration-500 ${
+                    i === active ? 'w-7 bg-navy' : 'w-2.5 bg-transparent'
+                  }`}
+                />
+              </button>
             </li>
           ))}
         </ul>
       </div>
-      <div className="absolute left-3/4 top-[37%] -translate-x-1/2 animate-rotate20 sm:left-[45%] lg:top-[14%]" aria-hidden="true">
-        <img src="/images/box1.png" alt="" />
+      <div
+        className="absolute left-3/4 top-[37%] -translate-x-1/2 sm:left-[45%] lg:top-[14%]"
+        style={{ marginLeft: tilt.x * 24, marginTop: tilt.y * 16, transition: 'margin 0.3s ease-out' }}
+        aria-hidden="true"
+      >
+        <img src="/images/box1.png" alt="" className="animate-rotate20" />
       </div>
     </section>
   );

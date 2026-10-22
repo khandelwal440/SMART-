@@ -63,10 +63,13 @@ export default function About() {
             <div className="order-1 w-full lg:order-2 lg:w-1/2 max-sm:-mt-[70px]">
               <h2 className="head-tag">ABOUT SMARTANK</h2>
               <p className="head mb-2">We help Organisations achieve ultimate business growth and success.</p>
-              <ul className="-mx-[15px] mb-[25px] mt-5 flex flex-col gap-[30px]">
+              <ul className="mb-[25px] mt-5 flex flex-col gap-5">
                 {ABOUT_FEATURES.map((f) => (
-                  <li key={f.title} className="flex items-start gap-[15px] px-[15px] max-sm:block">
-                    <span className="flex h-[70px] w-[70px] shrink-0 items-center justify-center rounded-lg bg-cream max-sm:mb-2.5">
+                  <li
+                    key={f.title}
+                    className="group flex items-start gap-[15px] rounded-2xl p-3 transition-all duration-300 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(34,83,120,0.45)] max-sm:block"
+                  >
+                    <span className="flex h-[70px] w-[70px] shrink-0 items-center justify-center rounded-lg bg-cream transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 max-sm:mb-2.5">
                       <img src={f.icon} alt="" />
                     </span>
                     <div>

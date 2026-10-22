@@ -24,7 +24,10 @@ export default function Layout() {
       <Preloader />
       <Header />
       <main id="main" tabIndex={-1} className="overflow-x-hidden outline-none">
-        <Outlet />
+        {/* keyed by path so every page fades up on navigation */}
+        <div key={pathname} className="animate-pageIn">
+          <Outlet />
+        </div>
       </main>
       <Footer />
       <WhatsAppFloat />

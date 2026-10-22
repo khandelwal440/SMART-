@@ -24,8 +24,10 @@ function useLayout() {
 
 function ServiceCard({ s }) {
   return (
-    <article className="rounded-[15px] bg-white [filter:drop-shadow(0px_7px_7px_rgba(189,202,202,0.35))]">
-      <img src={s.card} alt={s.title} className="w-full rounded-t-[15px]" draggable="false" loading="lazy" />
+    <article className="group overflow-hidden rounded-[15px] bg-white transition-all duration-500 [filter:drop-shadow(0px_7px_7px_rgba(189,202,202,0.35))] hover:-translate-y-2 hover:[filter:drop-shadow(0px_20px_25px_rgba(34,83,120,0.25))]">
+      <div className="overflow-hidden rounded-t-[15px]">
+        <img src={s.card} alt={s.title} className="w-full transition-transform duration-700 group-hover:scale-110" draggable="false" loading="lazy" />
+      </div>
       <div className="flex flex-col items-center p-4">
         <h3 className="mb-[7px] text-center text-2xl font-extrabold text-navy max-lg:text-[23px]">
           {s.cardTitle.map((line, j) => (
@@ -164,16 +166,20 @@ export default function ServiceCarousel({ items = SERVICES }) {
       )}
 
       {dots && (
-        <ul className="flex justify-start gap-1 px-3">
+        <ul className="flex justify-center gap-1 px-3">
           {items.map((s, i) => (
-            <li key={s.id} className="h-2.5 w-2.5">
+            <li key={s.id}>
               <button
                 type="button"
                 aria-label={`${i + 1} of ${n}`}
                 aria-current={i === realIndex}
                 onClick={() => go(n + i)}
-                className={`block h-2.5 w-2.5 rounded-full border-2 border-navy ${i === realIndex ? 'bg-navy' : ''}`}
-              />
+                className="flex h-6 items-center px-1.5"
+              >
+                <span
+                  className={`block h-2.5 rounded-full border-2 border-navy transition-all duration-500 ${i === realIndex ? 'w-7 bg-navy' : 'w-2.5'}`}
+                />
+              </button>
             </li>
           ))}
         </ul>

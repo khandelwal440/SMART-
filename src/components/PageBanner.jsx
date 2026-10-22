@@ -10,12 +10,12 @@ export default function PageBanner({ title, crumbs }) {
 
   return (
     <section
-      className="relative z-[1] mt-[58px] bg-cover pb-[110px] pt-[105px] max-sm:bg-[60%] sm:bg-[79%] lg:mt-[108px]"
+      className="relative z-[1] mt-[58px] overflow-hidden bg-cover pb-16 pt-24 max-sm:bg-[60%] sm:bg-[79%] sm:pb-[110px] sm:pt-[105px] lg:mt-[108px]"
       style={{ backgroundImage: "url('/images/breadcrumb_bg.jpg')" }}
     >
       <div className="container">
         <div className="lg:w-1/2">
-          <h1 className="mb-2.5 text-[48px] font-medium leading-[1.2] text-navy">{title}</h1>
+          <h1 className="mb-2.5 animate-pageIn text-[34px] font-bold leading-[1.15] text-navy sm:text-[42px] lg:text-[48px] lg:font-medium">{title}</h1>
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center">
               {trail.map((c, i) => {

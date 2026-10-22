@@ -41,6 +41,15 @@
     @apply absolute right-0 top-1/2 -z-10 h-[50px] w-[50px] -translate-y-1/2 rounded-[30px] bg-navy transition-all duration-300;
   }
   .st-btn:hover::before { width: 100%; }
+  /* light sweep across the button on hover */
+  .st-btn::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/30 opacity-0;
+    transition: left 0.6s ease, opacity 0.2s;
+  }
+  .st-btn:hover::after { left: 120%; opacity: 1; }
+  .st-btn { overflow: hidden; box-shadow: 0 10px 24px -12px rgba(247, 164, 0, 0.8); }
+  .st-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(34, 83, 120, 0.8); }
   .st-btn:disabled { @apply cursor-not-allowed opacity-70; }
 
   .head {
@@ -54,11 +63,31 @@
   @media (min-width: 1200px) { .head { font-size: 44px; line-height: 55px; } }
 
   .head-tag {
-    @apply mb-[15px] inline-block rounded-full bg-tag font-extrabold uppercase text-navy;
+    @apply mb-[15px] inline-flex items-center gap-2 rounded-full bg-tag font-extrabold uppercase text-navy;
     font-size: 13px;
     letter-spacing: 0.1em;
     padding: 4px 13px;
     line-height: 1.2;
+  }
+  /* pulsing amber dot in front of every section tag */
+  .head-tag::before {
+    content: '';
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-amber;
+    box-shadow: 0 0 0 0 rgba(247, 164, 0, 0.7);
+    animation: tagPulse 2s infinite;
+  }
+  @keyframes tagPulse {
+    70% { box-shadow: 0 0 0 7px rgba(247, 164, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(247, 164, 0, 0); }
+  }
+
+  /* lift + glow on interactive cards */
+  .lift {
+    @apply transition-all duration-500;
+  }
+  .lift:hover {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 22px 28px rgba(34, 83, 120, 0.22));
   }
 
   /* Bootstrap .form-control / .form-select look */
@@ -157,6 +186,15 @@
   @apply block w-full rounded border-2 border-white bg-transparent px-3 py-1.5 text-base font-normal text-white placeholder:text-white focus:outline-none focus:ring-4 focus:ring-white/30;
 }
 .ghost-input option { color: #000; }
+
+/* Gradient text accent */
+.text-gradient {
+  background: linear-gradient(90deg, #225378, #2f7fb8, #f7a400, #225378);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

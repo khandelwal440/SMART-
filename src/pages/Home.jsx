@@ -3,6 +3,7 @@ import Reveal from '../components/Reveal.jsx';
 import ArrowButton from '../components/ArrowButton.jsx';
 import ServiceCarousel from '../components/ServiceCarousel.jsx';
 import ContactSection from '../components/ContactSection.jsx';
+import StatsBand from '../components/StatsBand.jsx';
 import { ArrowRight } from '../components/JobsPanel.jsx';
 import { CONTACT, HOME_JOBS, REGIONS } from '../data/content.js';
 
@@ -26,16 +27,28 @@ function RegionsStrip() {
     <section className="bg-navy pb-[23px] pt-10 text-white">
       <div className="container">
         <h2 className="text-center text-[calc(1.275rem+0.3vw)] font-medium leading-[1.2] xl:text-[1.5rem]">Our Services are available in</h2>
-        <Reveal aos="zoom-in" as="ul" className="flex items-center justify-center">
+        {/* md+: static row like the original */}
+        <Reveal aos="zoom-in" as="ul" className="hidden items-center justify-center md:flex">
           {REGIONS.map((r) => (
-            <li key={r} className="mb-2 mr-2 sm:mr-4">
+            <li key={r} className="group mb-2 mr-4">
               <span className="flex items-center font-medium">
-                <img src="/images/star.png" alt="" className="mr-1 h-4 w-4 sm:mr-2 sm:h-5 sm:w-5 md:h-auto md:w-auto" />
-                <span className="text-[13px] leading-[1.2] sm:text-[18px] md:text-[35px]">{r}</span>
+                <img src="/images/star.png" alt="" className="mr-2 transition-transform duration-500 group-hover:rotate-[144deg] group-hover:scale-125" />
+                <span className="text-[35px] leading-[1.2] transition-colors group-hover:text-amber">{r}</span>
               </span>
             </li>
           ))}
         </Reveal>
+      </div>
+      {/* phones: endless marquee so the names stay large and readable */}
+      <div className="relative mt-2 overflow-hidden md:hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+        <ul className="flex w-max animate-marquee">
+          {[...REGIONS, ...REGIONS, ...REGIONS, ...REGIONS].map((r, i) => (
+            <li key={i} className="flex items-center px-5" aria-hidden={i >= REGIONS.length}>
+              <img src="/images/star.png" alt="" className="mr-2 h-5 w-5" />
+              <span className="text-2xl font-medium leading-[1.2]">{r}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -107,6 +120,7 @@ export default function Home() {
       <HeroSlider />
       <AboutTeaser />
       <RegionsStrip />
+      <StatsBand />
       <WhatWeDo />
       <JobsCta />
       <ContactSection />

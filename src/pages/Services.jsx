@@ -21,7 +21,7 @@ function EnquiryStrip() {
   });
   const field = 'ghost-input';
   return (
-    <section aria-label="Service enquiry" className="z-[1029] bg-amber py-[30px] sm:sticky sm:bottom-0">
+    <section aria-label="Service enquiry" className="z-[1029] bg-amber py-[30px] lg:sticky lg:bottom-0">
       <div className="container">
         <form onSubmit={form.onSubmit} noValidate>
           <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 md:grid-cols-4">

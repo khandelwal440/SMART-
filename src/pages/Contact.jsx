@@ -16,13 +16,13 @@ export default function Contact() {
               <p>For general questions or information about our services, please email us at:</p>
               <p>
                 <b>Email:</b>{' '}
-                <a className="text-ink underline" href={`mailto:${CONTACT.infoEmail}`}>
+                <a className="inline-block py-1 text-ink underline decoration-amber decoration-2 underline-offset-4 transition hover:text-navy" href={`mailto:${CONTACT.infoEmail}`}>
                   {CONTACT.infoEmail}
                 </a>
               </p>
               <p>
                 Phone:{' '}
-                <a className="text-ink underline" href={CONTACT.phoneHref}>
+                <a className="inline-block py-1 text-ink underline decoration-amber decoration-2 underline-offset-4 transition hover:text-navy" href={CONTACT.phoneHref}>
                   {CONTACT.phone}
                 </a>
               </p>
@@ -32,7 +32,7 @@ export default function Contact() {
               <p>Looking for an opportunity? Send your resume and cover letter to:</p>
               <p>
                 <b>Email:</b>{' '}
-                <a className="text-ink underline" href={`mailto:${CONTACT.jobsEmail}`}>
+                <a className="inline-block py-1 text-ink underline decoration-amber decoration-2 underline-offset-4 transition hover:text-navy" href={`mailto:${CONTACT.jobsEmail}`}>
                   {CONTACT.jobsEmail}
                 </a>
               </p>

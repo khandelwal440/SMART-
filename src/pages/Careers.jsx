@@ -3,7 +3,10 @@ import Reveal from '../components/Reveal.jsx';
 import ArrowButton from '../components/ArrowButton.jsx';
 import JobsPanel from '../components/JobsPanel.jsx';
 import ApplicationForm from '../components/ApplicationForm.jsx';
+import { Icon } from '../components/Icons.jsx';
 import { CAREER_INTRO, CAREER_JOBS, CAREER_OUTRO, CAREER_WHY, CONTACT } from '../data/content.js';
+
+const WHY_ICONS = ['bulb', 'growth', 'target', 'team'];
 
 export default function Careers() {
   return (
@@ -15,15 +18,20 @@ export default function Careers() {
           {CAREER_INTRO.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
-          <h3 className="head-tag">Why Choose SmarTank?</h3>
-          <Reveal as="ul" aos="slide-left" className="caret-list pl-8">
-            {CAREER_WHY.map((w) => (
-              <li key={w.title} className="relative mb-5 block">
-                <h4 className="text-2xl font-bold text-navy">{w.title}</h4>
-                {w.text}
-              </li>
+          <h3 className="head-tag mt-4">Why Choose SmarTank?</h3>
+          <ul className="mb-8 mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {CAREER_WHY.map((w, i) => (
+              <Reveal as="li" aos="fade-up" key={w.title}>
+                <div className="group h-full rounded-2xl border border-tag bg-gradient-to-b from-white to-tag/50 p-6 transition-all duration-500 hover:-translate-y-2 hover:border-amber hover:shadow-[0_24px_45px_-22px_rgba(34,83,120,0.6)]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white transition-all duration-500 group-hover:rotate-6 group-hover:bg-amber">
+                    <Icon name={WHY_ICONS[i]} className="h-6 w-6" />
+                  </span>
+                  <h4 className="mb-2 mt-5 text-xl font-extrabold text-navy">{w.title.replace(/:$/, '')}</h4>
+                  <p className="mb-0 font-medium leading-relaxed">{w.text}</p>
+                </div>
+              </Reveal>
             ))}
-          </Reveal>
+          </ul>
           <p>{CAREER_OUTRO}</p>
         </div>
 
