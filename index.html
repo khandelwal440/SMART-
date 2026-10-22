@@ -115,7 +115,8 @@ html.js:not(.fallback) .hero-tr .p2,html.js:not(.fallback) .hero-tr .p3{opacity:
 .mmenu .btns .btn{flex:1}
 
 /* ---------- HERO (data-home-hero) ---------- */
-.hero{position:relative;height:230vh}
+/* hero holds only briefly; its scroll effects finish while the page keeps moving */
+.hero{position:relative;height:112vh}
 .hero-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .hero-bg,.hero-bg-in{position:absolute;inset:0;transform-origin:50% 40%;will-change:transform}
 .hero-bg .layer{position:absolute;inset:-4%;width:108%;height:108%;will-change:transform}
@@ -389,7 +390,7 @@ footer{background:var(--navy);color:#fff}
   .f-cols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:991px){
-  .hero{height:200vh}
+  .hero{height:106vh}
   .h-line,.crosshair{top:50%}
   .v-line,.crosshair{display:none}
   .hero-tr{width:100%;bottom:50%;padding:0 var(--gut) 24px}
@@ -1076,7 +1077,7 @@ function intro(){
 function initHeroScroll(){
   const hero=$('[data-home-hero]'),bg=$('[data-home-hero-bg]'),svgs=$$('[data-home-hero-bg-svg]',hero),paras=$$('[data-home-hero-paragraph]',hero),links=$$('[data-home-hero-anchor-link]',hero);
   const cur=i=>links.forEach((l,j)=>l.classList.toggle('w--current',j===i));cur(0);
-  const tl=gsap.timeline({scrollTrigger:{trigger:hero,start:'clamp(top top)',end:'bottom bottom',scrub:true,
+  const tl=gsap.timeline({scrollTrigger:{trigger:hero,start:'clamp(top top)',end:()=>'+='+innerHeight*.55,scrub:.6,invalidateOnRefresh:true,
     onUpdate:s=>cur(s.progress<.17?0:s.progress<.6?1:2)},defaults:{ease:'linear'}});
   tl.to(bg,{scale:1.125,duration:3},0)
     .fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:1},0);
