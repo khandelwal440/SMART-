@@ -8,6 +8,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- start downloading the animation libraries immediately -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js">
+<script>
+/* Hide the hero's animated parts until GSAP takes over, so the finished layout never
+   flashes before the intro. If the libraries fail to load, show everything after 3s. */
+document.documentElement.classList.add('js');
+setTimeout(function(){if(!window.gsap)document.documentElement.classList.add('fallback')},3000);
+</script>
 <style>
 :root{
   --bg:#F5F6F3; --ink:#0A0A0A; --muted:#5B6168; --line:#DFE1DC;
@@ -66,14 +79,13 @@ h3{font-size:clamp(22px,2vw,28px);letter-spacing:-.02em;line-height:1.15}
 .dark .hr::before,.dark .hr::after{background:#fff}
 .hr::before{left:-4px}.hr::after{right:-4px}
 
-/* ---------- preloader ---------- */
-.preloader{position:fixed;inset:0;z-index:100;background:var(--navy-2);display:grid;place-items:center;overflow:hidden}
-.preloader .pbg{position:absolute;inset:0;visibility:hidden}
-.preloader .pbg svg{position:absolute;inset:0;width:100%;height:100%}
-.preloader .plogo{position:relative;color:#fff;display:flex;align-items:center;gap:14px;font-size:clamp(34px,5vw,56px);font-weight:600;letter-spacing:-.04em;visibility:hidden}
-.preloader .plogo svg{width:1.1em;height:1.1em}
-.preloader .plogo b{color:var(--orange);font-weight:600}
-html.fallback .preloader{display:none}
+/* ---------- pre-intro state (removed the moment GSAP starts the intro) */
+html.js:not(.fallback):not(.anim-ready) [data-home-hero-heading],
+html.js:not(.fallback):not(.anim-ready) [data-home-hero-fade]{opacity:0}
+html.js:not(.fallback):not(.anim-ready) [data-home-hero-top-right-wrap]{clip-path:polygon(0% 100%,0% 100%,0% 100%,0% 100%)}
+html.js:not(.fallback):not(.anim-ready) [data-home-hero-bottom-left-wrap]{clip-path:polygon(100% 0%,100% 0%,100% 0%,100% 0%)}
+html.js:not(.fallback):not(.anim-ready) .hero-bg{opacity:0}
+html.js:not(.fallback) .hero-tr .p2,html.js:not(.fallback) .hero-tr .p3{opacity:.12}
 
 /* ---------- cursor ---------- */
 .cursor{position:fixed;left:0;top:0;z-index:90;pointer-events:none;width:0;height:0}
@@ -436,15 +448,6 @@ footer{background:var(--navy);color:#fff}
 </style>
 </head>
 <body>
-
-<!-- PRELOADER -->
-<div class="preloader" data-preloader>
-  <div class="pbg" data-preloader-bg><svg class="topo" id="topoPre" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true" data-preloader-bg-image></svg></div>
-  <div class="plogo" data-preloader-logo>
-    <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21 13 4l10 17"/><path d="M8 21l5-8.5 5 8.5"/><path d="M1.5 21h23" stroke="#FF5F2E"/></svg>
-    <span>Smar<b>T</b>ank</span>
-  </div>
-</div>
 
 <div class="cursor" data-cursor><div class="dot" data-cursor-text-target>View</div></div>
 
@@ -942,8 +945,6 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke,vert}={}
   }
   if(trail)add(`M-20 ${H*.26} C ${W*.08} ${H*.2}, ${W*.06} 60, ${W*.2} -20`,'trail');
 }
-topo($('#topoPre'),{faint:10,bundle:5,seed:9,stroke:'rgba(200,245,90,.5)'});
-$$('#topoPre .faint').forEach(p=>p.style.stroke='rgba(255,255,255,.07)');
 topo($('#topo0'),{faint:14,bundle:5,seed:3,baseY:220});
 /* scroll-drawn layer: on desktop it drops into the open bottom-right panel; on phones the
    bottom half is the heading panel, so it runs across the visible top half instead */
@@ -1039,36 +1040,24 @@ if(window.Lenis&&!REDUCE){
   lenis.stop();
 }
 
-/* ---------- preloader + hero intro timeline ---------- */
+/* ---------- hero intro timeline ---------- */
 function intro(){
-  const pre=$('[data-preloader]'),logo=$('[data-preloader-logo]'),pbg=$('[data-preloader-bg]'),pimg=$('[data-preloader-bg-image]');
   const nav=$('[data-nav-bar]'),hero=$('[data-home-hero]'),bg=$('[data-home-hero-bg]'),svgs=$$('[data-home-hero-bg-svg]',hero);
   const hl=$('[data-home-hero-horizontal-line]'),vl=$('[data-home-hero-vertical-line]'),ch=$('[data-home-hero-crosshair]');
   const bl=$('[data-home-hero-bottom-left-wrap]'),tr=$('[data-home-hero-top-right-wrap]'),h1=$('[data-home-hero-heading]'),fade=$('[data-home-hero-fade]');
   const m=isMobile();
-  const split=SplitText.create(h1,{type:'chars, words, lines',linesClass:'line-mask',wordsClass:'word-mask',charsClass:'char-mask'});
-  gsap.set(split.chars,{opacity:0});
+  const split=SplitText.create(h1,{type:'chars, words',wordsClass:'word-mask',charsClass:'char-mask'});
+  gsap.set(split.chars,{opacity:0});gsap.set(h1,{opacity:1});
   gsap.set([fade,$('.m-cta')],{autoAlpha:0});
   /* scroll-revealed layers start hidden on desktop */
   gsap.set(svgs[1].querySelectorAll('path'),{drawSVG:'0%'});gsap.set(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'});
-  /* Preloader plays once per visit; scrolling unlocks as soon as it starts wiping away
-     (like abatable), instead of waiting for the whole intro to finish. */
-  let seen=false;try{seen=sessionStorage.getItem('st-intro')==='1';sessionStorage.setItem('st-intro','1')}catch(_){}
+  /* No preloader: the hero text animation starts the moment the page opens,
+     and scrolling (plus the scroll-linked hero effects) is live straight away. */
   const bgIn=$('.hero-bg-in',bg);
-  const B=seen?0:1.5;
+  const B=0;
   const tl=gsap.timeline();
-  const unlock=()=>{if(!pre.isConnected)return;pre.remove();lenis&&lenis.start();initHeroScroll();ScrollTrigger.refresh()};
-  if(seen){pre.style.display='none';tl.call(unlock,null,0)}
-  else{
-    tl.set(logo,{autoAlpha:1},0).set(pbg,{autoAlpha:1},0)
-      .from(pimg,{scale:1.125,duration:2,ease:'linear'},0)
-      .fromTo(pbg,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:1.1},0)
-      .fromTo(logo,{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:.9,ease:'expo.out'},.25)
-      .to(logo,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1,duration:.7},1.2)
-      .fromTo(pre,{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',duration:1},B)
-      .call(()=>lenis&&lenis.start(),null,B)
-      .call(unlock,null,B+1);
-  }
+  lenis&&lenis.start();initHeroScroll();
+  document.documentElement.classList.add('anim-ready');
   tl.from(bgIn,{scale:1.25,duration:2.2,ease:'expo.out'},B)
     .fromTo(svgs[0].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:3,ease:'power3.out',stagger:.015},B+.2);
   if(!(m&&isTouch))tl.from(nav,{yPercent:-125,duration:1.2,ease:'expo.out',clearProps:'transform'},B+.5);
@@ -1092,6 +1081,7 @@ function initHeroScroll(){
   tl.to(bg,{scale:1.125,duration:3},0)
     .fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:1},0);
   const w1=SplitText.create(paras[0],{type:'words'}).words,w2=SplitText.create(paras[1],{type:'words'}).words;
+  gsap.set(paras,{opacity:1}); /* CSS dims the lines before JS; the words carry the dim state now */
   tl.fromTo(w1,{opacity:.12},{opacity:1,stagger:{amount:.5},duration:.3},.5)
     .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1},1.5)
     .fromTo(w2,{opacity:.12},{opacity:1,stagger:{amount:.5},duration:.3},1.9);
@@ -1144,7 +1134,7 @@ function reveal(){
     const tl=gsap.timeline({scrollTrigger:{trigger:c,start:'top 80%',once:true}});
     heads.forEach(h=>{
       if(m){gsap.set(h,{opacity:0});tl.to(h,{opacity:1,duration:.5,ease:'power2.out'},0)}
-      else{const s=SplitText.create(h,{type:'chars, words, lines',linesClass:'line-mask',wordsClass:'word-mask',charsClass:'char-mask'});gsap.set(s.chars,{opacity:0});tl.to(s.chars,{opacity:1,duration:.5,stagger:{each:.03,from:'start'},ease:'none'},0)}});
+      else{const s=SplitText.create(h,{type:'chars, words',wordsClass:'word-mask',charsClass:'char-mask'});gsap.set(s.chars,{opacity:0});tl.to(s.chars,{opacity:1,duration:.5,stagger:{each:.03,from:'start'},ease:'none'},0)}});
     paras.forEach(p=>{gsap.set(p,{opacity:0,scale:m?1:.9,transformOrigin:'center'});tl.to(p,{opacity:1,scale:1,duration:.8,ease:'power2.out'},.4)});
     if(fades.length){gsap.set(fades,{autoAlpha:0});tl.to(fades,{autoAlpha:1,duration:.5,ease:'power2.out',stagger:.08},.8)}
   });
@@ -1260,10 +1250,9 @@ function cursor(){
 }
 
 /* ---------- run ---------- */
-document.fonts.ready.then(()=>{
-  const introTl=intro();
-  /* safety net: never leave the visitor stuck behind the preloader */
-  setTimeout(()=>{if($('[data-preloader]'))introTl.progress(1)},9000);mouseMove();navScroll();mobileMenu();reveal();regionsFlip();clipText();stickySteps();tiltCards();counters();statSlider();testimonial();parallax();cursor();
+/* start as soon as the font is ready, but never wait more than 400ms for it */
+Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,400))]).then(()=>{
+  intro();mouseMove();navScroll();mobileMenu();reveal();regionsFlip();clipText();stickySteps();tiltCards();counters();statSlider();testimonial();parallax();cursor();
 });
 } // HAS_GSAP
 
