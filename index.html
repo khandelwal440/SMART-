@@ -102,8 +102,8 @@ html.fallback .preloader{display:none}
 /* ---------- HERO (data-home-hero) ---------- */
 .hero{position:relative;height:230vh}
 .hero-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.hero-bg{position:absolute;inset:0;transform-origin:50% 40%}
-.hero-bg .layer{position:absolute;inset:-4%;width:108%;height:108%}
+.hero-bg,.hero-bg-in{position:absolute;inset:0;transform-origin:50% 40%;will-change:transform}
+.hero-bg .layer{position:absolute;inset:-4%;width:108%;height:108%;will-change:transform}
 .topo path{fill:none}
 .topo .faint{stroke:#E1E4DE;stroke-width:1.2}
 .topo .dk{stroke:var(--olive);stroke-width:1.2}
@@ -203,8 +203,8 @@ html.fallback .preloader{display:none}
 .tilt-content h2{max-width:900px;margin-bottom:22px}
 .tilt-content p{max-width:620px}
 .tilt-circles{position:absolute;inset:0}
-.tilt-circle{position:absolute;inset:0;transform-origin:50% 160%}
-.tilt-card{position:absolute;left:50%;top:50%;width:min(560px,86vw);margin-left:calc(min(560px,86vw) / -2);transform:translateY(60vh);background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,44px);min-height:360px;display:flex;flex-direction:column;gap:18px;box-shadow:0 40px 80px -40px rgba(0,38,66,.35)}
+.tilt-circle{position:absolute;inset:0;transform-origin:50% 160%;will-change:transform}
+.tilt-card{position:absolute;left:50%;top:50%;width:min(560px,86vw);margin-left:calc(min(560px,86vw) / -2);transform:translateY(60vh);background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,44px);min-height:360px;display:flex;flex-direction:column;gap:18px;box-shadow:0 18px 36px -22px rgba(0,38,66,.4);will-change:transform}
 .tilt-circle:nth-child(odd) .tilt-card{background:var(--navy);color:#fff;border-color:var(--navy)}
 .tilt-circle:nth-child(odd) .tilt-card p,.tilt-circle:nth-child(odd) .tilt-card .mark{color:rgba(255,255,255,.7);border-color:var(--navy-line)}
 .tilt-card .num{font-size:14px;color:var(--orange);font-weight:600}
@@ -488,11 +488,11 @@ footer{background:var(--navy);color:#fff}
 <!-- HERO -->
 <section class="hero" data-home-hero>
   <div class="hero-sticky">
-    <div class="hero-bg" data-home-hero-bg>
+    <div class="hero-bg" data-home-hero-bg><div class="hero-bg-in">
       <svg class="topo layer" id="topo0" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true" data-home-hero-bg-svg data-mouse-move-strength="0.08"></svg>
       <svg class="topo layer" id="topo1" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true" data-home-hero-bg-svg data-mouse-move-strength="0.16"></svg>
       <svg class="topo layer" id="topo2" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true" data-home-hero-bg-svg data-mouse-move-strength="0.26"></svg>
-    </div>
+    </div></div>
     <div class="h-line" data-home-hero-horizontal-line></div>
     <div class="v-line" data-home-hero-vertical-line></div>
     <div class="crosshair" data-home-hero-crosshair></div>
@@ -925,24 +925,26 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke}={}){
   const W=1440,H=900,ns='http://www.w3.org/2000/svg';
   let s=seed;const r=()=>(s=(s*9301+49297)%233280)/233280;
   const ph=[r()*6,r()*6,r()*6];
-  const line=(base,amp,off)=>{let d='';for(let x=-20;x<=W+20;x+=16){const y=base+amp*Math.sin(x/260+ph[0]+off*.12)+amp*.55*Math.sin(x/110+ph[1]+off*.2)+amp*.25*Math.sin(x/47+ph[2]);d+=(x<0?'M':'L')+x+' '+y.toFixed(1)}return d};
+  /* smooth curve through ~30 points (was ~92 straight segments) – far cheaper to paint */
+  const line=(base,amp,off)=>{const pts=[];for(let x=-40;x<=W+40;x+=52){pts.push([x,base+amp*Math.sin(x/260+ph[0]+off*.12)+amp*.55*Math.sin(x/110+ph[1]+off*.2)+amp*.2*Math.sin(x/70+ph[2])])}
+    let d=`M${pts[0][0]} ${pts[0][1].toFixed(1)}`;for(let i=1;i<pts.length-1;i++){const mx=(pts[i][0]+pts[i+1][0])/2,my=(pts[i][1]+pts[i+1][1])/2;d+=`Q${pts[i][0]} ${pts[i][1].toFixed(1)} ${mx} ${my.toFixed(1)}`}
+    const l=pts[pts.length-1];return d+`L${l[0]} ${l[1].toFixed(1)}`};
   const add=(d,cls)=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',d);p.setAttribute('class',cls);if(stroke&&cls!=='faint')p.style.stroke=stroke;svg.appendChild(p);return p};
   for(let i=0;i<faint;i++)add(line(i*H/faint*1.3-120,40+r()*30,i),'faint');
   if(bundle){
     for(let i=0;i<bundle;i++)add(line(baseY+i*16,60,i*.4),'dk');
-    if(!stroke)add(line(baseY+80,62,2.2),'shadow').setAttribute('transform','translate(6 8)');
     add(line(baseY+80,62,2.2),'thick');
   }
   if(trail)add(`M-20 ${H*.26} C ${W*.08} ${H*.2}, ${W*.06} 60, ${W*.2} -20`,'trail');
 }
-topo($('#topoPre'),{faint:18,bundle:5,seed:9,stroke:'rgba(200,245,90,.5)'});
+topo($('#topoPre'),{faint:10,bundle:5,seed:9,stroke:'rgba(200,245,90,.5)'});
 $$('#topoPre .faint').forEach(p=>p.style.stroke='rgba(255,255,255,.07)');
-topo($('#topo0'),{faint:22,bundle:5,seed:3,baseY:220});
+topo($('#topo0'),{faint:14,bundle:5,seed:3,baseY:220});
 topo($('#topo1'),{bundle:4,seed:12,baseY:520});
 topo($('#topo2'),{trail:true,seed:4});
-topo($('#topoAbout'),{faint:18,seed:7});
-topo($('#topoContact'),{faint:18,seed:11});
-topo($('#topoBlog'),{faint:14,bundle:5,seed:5,stroke:'#C8F55A'});
+topo($('#topoAbout'),{faint:10,seed:7});
+topo($('#topoContact'),{faint:10,seed:11});
+topo($('#topoBlog'),{faint:10,bundle:5,seed:5,stroke:'#C8F55A'});
 $$('#topoBlog .faint').forEach(p=>p.style.stroke='rgba(255,255,255,.08)');
 
 /* ---------- render content ---------- */
@@ -1017,6 +1019,8 @@ if(HAS_GSAP){
 gsap.registerPlugin(ScrollTrigger,SplitText,DrawSVGPlugin,Flip,CustomEase);
 CustomEase.create('osmo','0.625, 0.05, 0, 1');
 gsap.defaults({ease:'osmo',duration:.6});
+/* phones: don't recalculate every trigger when the address bar shows/hides */
+ScrollTrigger.config({ignoreMobileResize:true});
 
 /* Lenis smooth scroll synced to ScrollTrigger */
 if(window.Lenis&&!REDUCE){
@@ -1039,27 +1043,38 @@ function intro(){
   gsap.set([fade,$('.m-cta')],{autoAlpha:0});
   /* scroll-revealed layers start hidden on desktop */
   if(!m){gsap.set(svgs[1].querySelectorAll('path'),{drawSVG:'0%'});gsap.set(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'})}
-  const tl=gsap.timeline({onComplete:()=>{lenis&&lenis.start();pre.remove();initHeroScroll();ScrollTrigger.refresh()}});
-  tl.set(logo,{autoAlpha:1},0).set(pbg,{autoAlpha:1},0)
-    .from(pimg,{scale:1.125,duration:3,ease:'linear'})
-    .fromTo(pbg,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:1.5},'<')
-    .fromTo(logo,{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:1.25,ease:'expo.out'},'<.5')
-    .to(logo,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1,duration:1.2},'>')
-    .fromTo(pre,{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',duration:1.5},'<')
-    .from(bg,{scale:1.25,duration:2.75,ease:'expo.out'},'<')
-    .fromTo(svgs[0].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:5,ease:'power3.out',stagger:.02},'<.25');
-  if(m){
-    tl.fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:5,ease:'power3.out'},'<')
-      .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:5,ease:'power3.out'},'<');
+  /* Preloader plays once per visit; scrolling unlocks as soon as it starts wiping away
+     (like abatable), instead of waiting for the whole intro to finish. */
+  let seen=false;try{seen=sessionStorage.getItem('st-intro')==='1';sessionStorage.setItem('st-intro','1')}catch(_){}
+  const bgIn=$('.hero-bg-in',bg);
+  const B=seen?0:1.5;
+  const tl=gsap.timeline();
+  const unlock=()=>{if(!pre.isConnected)return;pre.remove();lenis&&lenis.start();initHeroScroll();ScrollTrigger.refresh()};
+  if(seen){pre.style.display='none';tl.call(unlock,null,0)}
+  else{
+    tl.set(logo,{autoAlpha:1},0).set(pbg,{autoAlpha:1},0)
+      .from(pimg,{scale:1.125,duration:2,ease:'linear'},0)
+      .fromTo(pbg,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:1.1},0)
+      .fromTo(logo,{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',scale:1.1},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',scale:1,duration:.9,ease:'expo.out'},.25)
+      .to(logo,{clipPath:'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',scale:1.1,duration:.7},1.2)
+      .fromTo(pre,{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',duration:1},B)
+      .call(()=>lenis&&lenis.start(),null,B)
+      .call(unlock,null,B+1);
   }
-  if(!(m&&isTouch))tl.from(nav,{yPercent:-125,duration:1.5,ease:'expo.out',clearProps:'transform'},'<1');
-  tl.from(hl,{top:'100%',duration:1.75},m?'<-1':'<')
-    .from(vl,{right:'-60%',duration:1.75},'<');
-  if(!m)tl.from(ch,{right:'-65%',duration:1.75},'<');
-  tl.fromTo(bl,{clipPath:m?'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)':'polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1.5},'<.75')
-    .to(split.chars,{opacity:1,duration:.5,stagger:{each:.03,from:'start'},ease:'none'},'<.5')
-    .to([fade,$('.m-cta')],{autoAlpha:1,duration:.6},'<')
-    .fromTo(tr,{clipPath:'polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1.5},'<');
+  tl.from(bgIn,{scale:1.25,duration:2.2,ease:'expo.out'},B)
+    .fromTo(svgs[0].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:3,ease:'power3.out',stagger:.015},B+.2);
+  if(m){
+    tl.fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:3,ease:'power3.out'},B+.2)
+      .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:3,ease:'power3.out'},B+.2);
+  }
+  if(!(m&&isTouch))tl.from(nav,{yPercent:-125,duration:1.2,ease:'expo.out',clearProps:'transform'},B+.5);
+  tl.from(hl,{top:'100%',duration:1.3},B+.2)
+    .from(vl,{right:'-60%',duration:1.3},B+.2);
+  if(!m)tl.from(ch,{right:'-65%',duration:1.3},B+.2);
+  tl.fromTo(bl,{clipPath:m?'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)':'polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1.1},B+.7)
+    .to(split.chars,{opacity:1,duration:.4,stagger:{each:.02,from:'start'},ease:'none'},B+1)
+    .to([fade,$('.m-cta')],{autoAlpha:1,duration:.6},B+1)
+    .fromTo(tr,{clipPath:'polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1.1},B+1);
   if(REDUCE)tl.progress(1);
   return tl;
 }
@@ -1084,7 +1099,9 @@ function mouseMove(){
   if(isTouch)return;
   const rem=10*parseFloat(getComputedStyle(document.documentElement).fontSize);
   const items=$$('[data-mouse-move-strength]').map(el=>({s:parseFloat(el.dataset.mouseMoveStrength)||0,x:gsap.quickTo(el,'x',{duration:2,ease:'power3'}),y:gsap.quickTo(el,'y',{duration:2,ease:'power3'})}));
-  addEventListener('mousemove',e=>{const x=(e.clientX/innerWidth-.5)*2,y=(e.clientY/innerHeight-.5)*2;items.forEach(i=>{i.x(x*-rem*i.s);i.y(y*-rem*i.s)})});
+  /* only move the layers while the hero is on screen */
+  let on=true;ScrollTrigger.create({trigger:'[data-home-hero]',start:'top bottom',end:'bottom top',onToggle:s=>on=s.isActive});
+  addEventListener('mousemove',e=>{if(!on)return;const x=(e.clientX/innerWidth-.5)*2,y=(e.clientY/innerHeight-.5)*2;items.forEach(i=>{i.x(x*-rem*i.s);i.y(y*-rem*i.s)})},{passive:true});
 }
 
 /* ---------- nav hide on scroll (desktop) ---------- */
@@ -1230,8 +1247,9 @@ function cursor(){
   const c=$('[data-cursor]'),txt=$('[data-cursor-text-target]');if(!matchMedia('(hover: hover) and (pointer: fine)').matches)return;
   let x=0,y=0,moved=false;const qx=gsap.quickTo(c,'x',{duration:.4,ease:'power3.out'}),qy=gsap.quickTo(c,'y',{duration:.4,ease:'power3.out'});
   const check=()=>{const h=document.elementFromPoint(x,y)?.closest('[data-cursor-hover]');const edge=x+60>=innerWidth;c.setAttribute('data-cursor',h?(edge?'active-edge':'active'):'');if(h)txt.textContent=h.getAttribute('data-cursor-text')||'View'};
-  addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;moved=true;qx(x);qy(y);requestAnimationFrame(check)});
-  addEventListener('scroll',()=>moved&&requestAnimationFrame(check),{passive:true});
+  let queued=false;const schedule=()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;check()})};
+  addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;moved=true;qx(x);qy(y);schedule()},{passive:true});
+  addEventListener('scroll',()=>moved&&schedule(),{passive:true});
 }
 
 /* ---------- run ---------- */
