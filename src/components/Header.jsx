@@ -120,9 +120,11 @@ export default function Header() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // Once scrolled, the logo must fit inside the header bar (55px mobile / 60px desktop);
+  // a hanging logo would cover headings and buttons scrolling underneath it.
   const logoSize = sticky
-    ? 'h-[64px] w-[100px] sm:h-[77px] sm:w-[120px] lg:h-[96px] lg:w-[150px]'
-    : 'h-[77px] w-[120px] sm:h-[96px] sm:w-[150px] lg:h-[117px] lg:w-[180px] xl:h-[160px] xl:w-[250px] xxl:h-[211px] xxl:w-[330px]';
+    ? 'h-[55px] w-[86px] lg:h-[60px] lg:w-[94px]'
+    :'h-[77px] w-[120px] sm:h-[96px] sm:w-[150px] lg:h-[117px] lg:w-[180px] xl:h-[160px] xl:w-[250px] xxl:h-[211px] xxl:w-[330px]';
 
   return (
     <header
@@ -173,13 +175,14 @@ export default function Header() {
           </ul>
         </nav>
 
-        <Link to="/" className="logo-panel absolute left-3 top-0 pr-8 lg:pr-10" aria-label="SmarTank home">
+        {/* z-[2] keeps the hanging logo above the scroll-progress bar */}
+        <Link to="/" className="logo-panel absolute left-3 top-0 z-[2] pr-8 lg:pr-10" aria-label="SmarTank home">
           <img src="/images/logo.jpg" alt="SmarTank Strategic Consultants" className={`transition-all duration-500 ${logoSize}`} />
         </Link>
       </div>
 
       {/* Scroll progress */}
-      <div className="absolute -bottom-[3px] left-0 h-[3px] bg-gradient-to-r from-amber via-[#ffcc4d] to-amber" style={{ width: `${progress * 100}%` }} aria-hidden="true" />
+      <div className="absolute -bottom-[3px] left-0 z-[1] h-[3px] bg-gradient-to-r from-amber via-[#ffcc4d] to-amber" style={{ width: `${progress * 100}%` }} aria-hidden="true" />
 
       {/* Mobile full-screen menu */}
       <div
