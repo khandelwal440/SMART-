@@ -30,6 +30,9 @@ function watch(el, setOn) {
   if (watchers.size === 0) {
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    // re-check once images have loaded (layout shifts) and when a background tab becomes visible
+    window.addEventListener('load', schedule);
+    document.addEventListener('visibilitychange', schedule);
   }
   watchers.set(el, setOn);
   schedule();
@@ -40,6 +43,8 @@ function unwatch(el) {
   if (watchers.size === 0) {
     window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', schedule);
+    window.removeEventListener('load', schedule);
+    document.removeEventListener('visibilitychange', schedule);
   }
 }
 
