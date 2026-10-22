@@ -130,7 +130,7 @@ function topo(svg,{bundle=0,trail=false,seed=1,faint=0,baseY=250,stroke,vert}={}
   }
   if(trail)add(`M-20 ${H*.26} C ${W*.08} ${H*.2}, ${W*.06} 60, ${W*.2} -20`,'trail');
 }
-on('#topoPre',s=>{topo(s,{faint:10,bundle:5,seed:9,stroke:'rgba(200,245,90,.5)'});$$('.faint',s).forEach(p=>p.style.stroke='rgba(255,255,255,.07)')});
+on('#topoPre',s=>{topo(s,{faint:10,bundle:5,seed:9,stroke:'rgba(255,221,89,.55)'});$$('.faint',s).forEach(p=>p.style.stroke='rgba(255,255,255,.07)')});
 on('#topo0',s=>topo(s,{faint:14,bundle:5,seed:3,baseY:220}));
 /* scroll-drawn layer: on desktop it drops into the open bottom-right panel; on phones the
    bottom half is the heading panel, so it runs across the visible top half instead */
@@ -141,7 +141,7 @@ on('#topo2',s=>topo(s,{trail:true,seed:4}));
 on('#topoPage',s=>topo(s,{faint:12,bundle:5,seed:6,baseY:120}));
 on('#topoAbout',s=>topo(s,{faint:10,seed:7}));
 on('#topoContact',s=>topo(s,{faint:10,seed:11}));
-on('#topoBlog',s=>{topo(s,{faint:10,bundle:5,seed:5,stroke:'#C8F55A'});$$('.faint',s).forEach(p=>p.style.stroke='rgba(255,255,255,.08)')});
+on('#topoBlog',s=>{topo(s,{faint:10,bundle:5,seed:5,stroke:'#FFDD59'});$$('.faint',s).forEach(p=>p.style.stroke='rgba(255,255,255,.08)')});
 
 /* ---------- render content ---------- */
 /* service links: in-page on the Services page, otherwise open services.html at that service */
@@ -155,7 +155,7 @@ if($('#regRow'))$('#regRow').innerHTML=REGIONS.map(([c,n])=>`
 if($('#stepList'))$('#stepList').innerHTML=SERVICES.map((s,i)=>`
  <article class="step" data-sticky-steps-item data-sticky-steps-item-status="${i?'after':'active'}">
   <div data-sticky-steps-anchor>
-   <div class="m-img" style="background:#0b3554 url('${s.img}') center/cover"></div>
+   <div class="m-img" style="background:#173A55 url('${s.img}') center/cover"></div>
    <p class="n">0${i+1}<i></i></p>
    <h3>${esc(s.t)}</h3>
    <p>${esc(s.s)}</p>
