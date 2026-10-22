@@ -303,15 +303,20 @@ function heroIntro(tl,B){
 function initHeroScroll(){
   const hero=$('[data-home-hero]'),bg=$('[data-home-hero-bg]'),svgs=$$('[data-home-hero-bg-svg]',hero),paras=$$('[data-home-hero-paragraph]',hero),links=$$('[data-home-hero-anchor-link]',hero);
   const cur=i=>links.forEach((l,j)=>l.classList.toggle('w--current',j===i));cur(0);
-  const tl=gsap.timeline({scrollTrigger:{trigger:hero,start:'clamp(top top)',end:()=>'+='+innerHeight*.55,scrub:.6,invalidateOnRefresh:true,
-    onUpdate:s=>cur(s.progress<.17?0:s.progress<.6?1:2)},defaults:{ease:'linear'}});
-  tl.to(bg,{scale:1.125,duration:3},0)
-    .fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:1},0);
+  /* Word reveal: each word's opacity is computed straight from the timeline's time, so every
+     scroll position always shows the same state – words light up strictly left to right,
+     line 2 first, then line 3 (staggered tweens could get stuck half-lit after a refresh). */
   const w1=SplitText.create(paras[0],{type:'words'}).words,w2=SplitText.create(paras[1],{type:'words'}).words;
-  gsap.set(paras,{opacity:1}); /* CSS dims the lines before JS; the words carry the dim state now */
-  tl.fromTo(w1,{opacity:.12},{opacity:1,stagger:{amount:.5},duration:.3},.5)
-    .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1},1.5)
-    .fromTo(w2,{opacity:.12},{opacity:1,stagger:{amount:.5},duration:.3},1.9);
+  const DIM=.12,WORD=.3;
+  const lineAt=(words,start,span,t)=>words.forEach((w,i)=>{const s=start+(words.length>1?i*span/(words.length-1):0);
+    const p=Math.min(1,Math.max(0,(t-s)/WORD));w.style.opacity=(DIM+(1-DIM)*p).toFixed(3)});
+  const paint=t=>{lineAt(w1,.5,.5,t);lineAt(w2,1.9,.5,t)};
+  paint(0);gsap.set(paras,{opacity:1}); /* CSS dims the lines before JS; the words carry the dim state now */
+  const tl=gsap.timeline({scrollTrigger:{trigger:hero,start:'clamp(top top)',end:()=>'+='+innerHeight*.55,scrub:.6,
+    onUpdate:s=>cur(s.progress<.17?0:s.progress<.6?1:2)},defaults:{ease:'linear'},onUpdate(){paint(this.time())}});
+  tl.to(bg,{scale:1.125,duration:3},0)
+    .fromTo(svgs[1].querySelectorAll('path'),{drawSVG:'0%'},{drawSVG:'100%',duration:1},0)
+    .fromTo(svgs[2],{clipPath:'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'},{clipPath:'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',duration:1},1.5);
 }
 
 /* ---------- mouse-move parallax on hero layers ---------- */
