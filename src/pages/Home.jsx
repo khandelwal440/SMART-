@@ -74,7 +74,7 @@ function WhatWeDo() {
 function JobsCta() {
   return (
     <section
-      className="relative z-[1] bg-cover bg-center py-[120px] after:absolute after:inset-0 after:-z-10 after:bg-amber after:mix-blend-multiply after:content-['']"
+      className="relative z-[1] bg-cover bg-center py-16 sm:py-24 lg:py-[120px] after:absolute after:inset-0 after:-z-10 after:bg-amber after:mix-blend-multiply after:content-['']"
       style={{ backgroundImage: "url('/images/jobs-open-bg.jpg')" }}
     >
       <div className="container">

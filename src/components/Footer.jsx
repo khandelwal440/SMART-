@@ -60,17 +60,17 @@ export default function Footer() {
           <h2 className={heading}>Get In Touch</h2>
           <ul className="space-y-2 text-white/75">
             <li>
-              <a href={CONTACT.phoneHref} className="font-bold text-white transition hover:text-amber">
+              <a href={CONTACT.phoneHref} className="inline-block py-1.5 font-bold text-white transition hover:text-amber">
                 {CONTACT.phone}
               </a>
             </li>
             <li>
-              <a href={`mailto:${CONTACT.infoEmail}`} className="break-all font-medium transition hover:text-amber">
+              <a href={`mailto:${CONTACT.infoEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-amber">
                 {CONTACT.infoEmail}
               </a>
             </li>
             <li>
-              <a href={`mailto:${CONTACT.jobsEmail}`} className="break-all font-medium transition hover:text-amber">
+              <a href={`mailto:${CONTACT.jobsEmail}`} className="inline-block break-all py-1.5 font-medium transition hover:text-amber">
                 {CONTACT.jobsEmail}
               </a>
             </li>

@@ -118,6 +118,21 @@
 [data-aos].aos-animate { opacity: 1; transform: translateZ(0); }
 [data-aos^='flip'].aos-animate { transform: perspective(2500px) rotateY(0); }
 
+/* Phones: every effect becomes a short fade-up. Sideways slides/flips look
+   jumpy on small screens and briefly push content past the edge. */
+@media (max-width: 767px) {
+  [data-aos] {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition-duration: 500ms;
+  }
+  [data-aos].aos-animate,
+  [data-aos^='flip'].aos-animate {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ---------- Hero slide text: staggered bounce-in on the active slide ---------- */
 .hero-anim {
   position: relative;

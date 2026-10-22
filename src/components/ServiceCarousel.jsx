@@ -175,7 +175,7 @@ export default function ServiceCarousel({ items = SERVICES }) {
                 aria-label={`${i + 1} of ${n}`}
                 aria-current={i === realIndex}
                 onClick={() => go(n + i)}
-                className="flex h-6 items-center px-1.5"
+                className="flex h-7 items-center px-2"
               >
                 <span
                   className={`block h-2.5 rounded-full border-2 border-navy transition-all duration-500 ${i === realIndex ? 'w-7 bg-navy' : 'w-2.5'}`}

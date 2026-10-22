@@ -94,7 +94,7 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
                     Our Services
                   </ArrowButton>
                 </div>
-                <div className="relative top-[18px] z-[1] mx-auto mt-8 max-w-[420px] lg:mt-0 lg:w-[37.7%] lg:max-w-none lg:shrink-0">
+                <div className="relative z-[1] mx-auto mt-8 max-w-[420px] lg:top-[18px] lg:mt-0 lg:w-[37.7%] lg:max-w-none lg:shrink-0">
                   <img src={s.image} alt={s.alt} className="w-[95%]" draggable="false" loading={i === 0 ? 'eager' : 'lazy'} />
                   <div
                     className="absolute top-[14%] -z-10 transition-transform duration-300 ease-out"
@@ -118,7 +118,7 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
 
       {/* slick-style dots: navy rings, active one filled */}
       <div className="container pointer-events-none absolute inset-x-0 bottom-[35px] z-[2] max-sm:static max-sm:pb-4">
-        <ul className="pointer-events-auto flex gap-1">
+        <ul className="pointer-events-auto flex">
           {slides.map((s, i) => (
             <li key={s.title}>
               {/* 24px hit area around the 10px ring; the active ring stretches into a pill */}
@@ -127,7 +127,7 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
                 aria-label={`${i + 1} of ${count}`}
                 aria-current={i === active}
                 onClick={() => go(i)}
-                className="-mx-1.5 flex h-6 min-w-6 items-center justify-center px-1.5"
+                className="flex h-7 items-center justify-center px-2"
               >
                 <span
                   className={`block h-2.5 rounded-full border-2 border-navy transition-all duration-500 ${
