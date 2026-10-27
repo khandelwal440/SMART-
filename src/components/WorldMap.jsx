@@ -38,7 +38,7 @@ export default function WorldMap({ markers, className = '' }) {
       viewBox={`0 0 ${width} ${height}`}
       className={`${inView ? 'map-in' : ''} ${className}`}
       role="img"
-      aria-label={`World map showing SmarTank in ${names}`}
+      aria-label={`World map showing SMARTANK in ${names}`}
     >
       {/* dots sweep in left to right; markers pop in afterwards, one by one */}
       <g className="map-dots" fill="#ffffff" fillOpacity="0.16">

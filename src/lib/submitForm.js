@@ -22,7 +22,7 @@
  */
 export async function submitForm(formName, data) {
   // eslint-disable-next-line no-console
-  console.info(`[SmarTank] "${formName}" form submitted (placeholder – no backend connected):`, data);
+  console.info(`[SMARTANK] "${formName}" form submitted (placeholder – no backend connected):`, data);
   await new Promise((resolve) => setTimeout(resolve, 900));
   return { ok: true };
 }

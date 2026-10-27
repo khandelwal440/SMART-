@@ -1,98 +1,143 @@
+import { Link } from 'react-router-dom';
 import PageBanner from '../components/PageBanner.jsx';
-import { ABOUT_FEATURES, ABOUT_INTRO, MISSION, VISION } from '../data/content.js';
+import Reveal from '../components/Reveal.jsx';
+import SectionIntro from '../components/SectionIntro.jsx';
+import { Icon } from '../components/Icons.jsx';
+import { ArrowRight } from '../components/JobsPanel.jsx';
+import { ABOUT_INTRO, ABOUT_PAGE, MISSION, REGIONS_SERVED, VISION, WHY_SMARTANK } from '../data/content.js';
 
-const RING = 'Years Of-Experience-'.split('');
-
-/** Amber badge with a trophy and "Years Of-Experience-20" spinning around it. */
-function ExperienceBadge() {
-  return (
-    <div className="absolute right-[-4px] top-[-20px] z-[3] flex h-[150px] w-[150px] origin-top-right scale-[0.7] items-center justify-center rounded-full border-4 border-white bg-gold shadow-[0_14px_30px_-12px_rgba(242,194,48,0.9)] sm:right-[-7px] sm:top-[37%] sm:origin-center sm:-translate-x-1/2 sm:scale-100">
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-navy text-white">
-        <svg viewBox="0 0 576 512" className="h-9 w-9" fill="currentColor" aria-hidden="true">
-          <path d="M552 64H448V24c0-13.3-10.7-24-24-24H152c-13.3 0-24 10.7-24 24v40H24C10.7 64 0 74.7 0 88v56c0 35.7 22.5 72.4 61.9 100.7 31.5 22.7 69.8 37.1 110 41.7C203.3 338.5 240 360 240 360v72h-48c-35.3 0-64 20.7-64 56v12c0 6.6 5.4 12 12 12h296c6.6 0 12-5.4 12-12v-12c0-35.3-28.7-56-64-56h-48v-72s36.7-21.5 68.1-73.6c40.3-4.6 78.6-19 110-41.7 39.3-28.3 61.9-65 61.9-100.7V88c0-13.3-10.7-24-24-24zM99.3 192.8C74.9 175.2 64 155.6 64 144v-16h64.2c1 32.6 5.8 61.2 12.8 86.2-15.1-5.2-29.2-12.4-41.7-21.4zM512 144c0 16.1-17.7 36.1-35.3 48.8-12.5 9-26.7 16.2-41.8 21.4 7-25 11.8-53.6 12.8-86.2H512v16z" />
-        </svg>
-      </div>
-      <p className="absolute left-1/2 top-1/2 m-0 -translate-x-1/2 -translate-y-1/2 animate-rotate10 text-[15px] font-extrabold uppercase text-white" aria-label="20 Years Of Experience">
-        {RING.map((ch, i) => (
-          <span key={i} aria-hidden="true" className="absolute -top-16 inline-block origin-[0_64px]" style={{ transform: `rotate(${i * 17}deg)` }}>
-            {ch}
-          </span>
-        ))}
-        <span aria-hidden="true" className="absolute -top-16 inline-block origin-[0_64px]" style={{ transform: 'rotate(323deg)' }}>
-          <b>2</b>
-        </span>
-        <span aria-hidden="true" className="absolute -top-16 inline-block origin-[0_64px]" style={{ transform: 'rotate(340deg)' }}>
-          <b>0</b>
-        </span>
-      </p>
-    </div>
-  );
-}
-
+/*
+ * About SMARTANK – who we are, what we help businesses achieve and how we work
+ * (suggestions doc, section 2). "Why SMARTANK" lives here as a section, so the
+ * same content isn't repeated on a separate page (section 4).
+ */
 export default function About() {
   return (
     <>
-      <PageBanner title="About Us" crumbs={[{ label: 'About' }]} />
+      <PageBanner title="About SMARTANK" crumbs={[{ label: 'About' }]} />
 
-      <section className="relative py-12">
+      {/* who we are */}
+      <section className="bg-cream py-16 sm:py-24">
+        <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <SectionIntro eyebrow="Who We Are" title="People, leadership and business performance — together." />
+            <Reveal aos="fade-up" as="p" className="mb-0 text-lg leading-relaxed text-navy">
+              {ABOUT_PAGE.intro}
+            </Reveal>
+          </div>
+          <Reveal aos="fade-left" className="relative">
+            <div className="absolute -right-4 -top-4 h-full w-full rounded-lg border-2 border-gold/60" aria-hidden="true" />
+            <img src="/images/site/team-smartank.webp" alt="The SMARTANK team in the office" className="relative aspect-[4/3] w-full rounded-lg object-cover" />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* our story */}
+      <section className="bg-white py-16 sm:py-24">
+        <div className="container grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal aos="fade-right" className="order-2 lg:order-1">
+            <img src={ABOUT_PAGE.storyImage} alt={ABOUT_PAGE.storyImageAlt} className="aspect-[4/3] w-full rounded-lg object-cover" loading="lazy" />
+          </Reveal>
+          <div className="order-1 lg:order-2">
+            <SectionIntro eyebrow="Our Story" title="Built on two decades of practical experience." />
+            <div className="space-y-4 text-[15px] leading-relaxed">
+              {ABOUT_INTRO.slice(0, 3).map((p) => (
+                <p key={p.slice(0, 20)} className="mb-0">
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* mission & vision */}
+      <section className="bg-navy py-16 text-white sm:py-20">
+        <div className="container grid gap-6 md:grid-cols-2">
+          {[
+            { label: 'Our Mission', text: MISSION, icon: 'mission' },
+            { label: 'Our Vision', text: VISION, icon: 'vision' },
+          ].map((b, i) => (
+            <Reveal aos="fade-up" delay={i * 150} key={b.label} className="rounded-lg border border-white/10 bg-white/5 p-8">
+              <Icon name={b.icon} className="mb-5 h-9 w-9 text-gold" />
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.35em] text-white/70">{b.label}</h2>
+              <p className="mb-0 text-xl font-bold leading-snug text-white">{b.text}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* values */}
+      <section className="bg-cream py-16 sm:py-24">
         <div className="container">
-          <div className="justify-text after:block after:clear-both after:content-['']">
-            {/* floats beside the text only on desktop; above it on phones/tablets so the text column isn't squeezed */}
-            <figure className="mb-6 w-full lg:float-right lg:mb-2.5 lg:ml-[30px] lg:w-[500px] xl:w-[700px]">
-              <img src="/images/about-img.png" alt="SmarTank team at work" className="w-full rounded-2xl lg:rounded-[5px]" />
-            </figure>
-            {ABOUT_INTRO.map((p, i) => (
-              <p key={i}>{p}</p>
+          <SectionIntro eyebrow="Our Values" title="What guides every engagement." className="mb-10 max-w-2xl" />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {ABOUT_PAGE.values.map((v, i) => (
+              <Reveal as="li" aos="fade-up" delay={i * 100} key={v.title} className="rounded-lg bg-white p-6 shadow-[0_10px_30px_-22px_rgba(11,31,58,0.4)]">
+                <Icon name={v.icon} className="mb-4 h-8 w-8 text-gold" />
+                <h3 className="mb-2 text-base font-extrabold text-navy">{v.title}</h3>
+                <p className="mb-0 text-sm leading-relaxed">{v.text}</p>
+              </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
+      </section>
 
-        <div className="container pt-12">
-          <div className="flex flex-col items-center lg:flex-row">
-            <div className="order-2 w-full lg:order-1 lg:w-1/2">
-              {/* phones: big photo with the second one tucked over its lower-right corner */}
-              <div className="relative mt-8 pb-16 text-left sm:mt-0 sm:block sm:pb-[90px] md:text-center lg:text-left">
-                <img
-                  src="/images/about-page-img1.jpg"
-                  alt="SmarTank consultants"
-                  className="w-[82%] rounded-2xl object-cover sm:w-auto sm:rounded-none"
-                />
-                <img
-                  src="/images/about-page-img2.jpg"
-                  alt="SmarTank leadership"
-                  className="absolute bottom-0 right-0 z-[2] w-[52%] rounded-2xl border-4 border-white shadow-[0_20px_40px_-18px_rgba(11,31,58,0.6)] sm:bottom-[25px] sm:right-[60px] sm:w-auto sm:rounded-none sm:border-0 sm:shadow-none"
-                />
-                <ExperienceBadge />
-                <img src="/images/about-page-img-shape.png" alt="" aria-hidden="true" className="absolute bottom-0 left-[70px] -z-10 max-sm:hidden md:left-[29%] md:bottom-[3%] lg:left-[70px] lg:bottom-0" />
-              </div>
-            </div>
-            <div className="order-1 w-full lg:order-2 lg:w-1/2">
-              <h2 className="head-tag">ABOUT SMARTANK</h2>
-              <p className="head mb-2">We help Organisations achieve ultimate business growth and success.</p>
-              <ul className="mb-[25px] mt-5 flex flex-col gap-5">
-                {ABOUT_FEATURES.map((f) => (
-                  <li
-                    key={f.title}
-                    className="group flex items-start gap-[15px] rounded-2xl p-3 transition-all duration-300 hover:bg-white hover:shadow-[0_18px_40px_-20px_rgba(11,31,58,0.45)] max-sm:block"
-                  >
-                    <span className="flex h-[70px] w-[70px] shrink-0 items-center justify-center rounded-lg bg-cream transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 max-sm:mb-2.5">
-                      <img src={f.icon} alt="" />
-                    </span>
-                    <div>
-                      <h3 className="mb-[5px] text-xl font-bold">{f.title}</h3>
-                      <p className="mb-0">{f.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <h3 className="mb-2 mr-2 inline-block bg-gold px-2.5 py-[5px] text-xl font-extrabold text-[#1c1e1f]">VISION</h3>
-              <p>{VISION}</p>
-              <h3 className="mb-2 mr-2 inline-block bg-gold px-2.5 py-[5px] text-xl font-extrabold text-[#1c1e1f]">MISSION</h3>
-              <p>{MISSION}</p>
-            </div>
+      {/* how we work + why SMARTANK */}
+      <section id="why-smartank" className="scroll-mt-24 bg-white py-16 sm:py-24">
+        <div className="container grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <SectionIntro eyebrow="How We Work" title="From business context to clear action." className="mb-8" />
+            <ol className="space-y-4">
+              {ABOUT_PAGE.method.map((m, i) => (
+                <Reveal as="li" aos="fade-up" delay={i * 110} key={m.title} className="flex gap-5 rounded-lg bg-cream p-5">
+                  <span className="text-3xl font-extrabold leading-none text-gold">0{i + 1}</span>
+                  <span>
+                    <span className="mb-1 block font-extrabold text-navy">{m.title}</span>
+                    <span className="block text-sm leading-relaxed">{m.text}</span>
+                  </span>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <SectionIntro eyebrow="Why SMARTANK" title="Business-aligned, structured and discreet." text={ABOUT_PAGE.why} className="mb-8" />
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {WHY_SMARTANK.map((w, i) => (
+                <Reveal as="li" aos="fade-up" delay={i * 110} key={w.title} className="rounded-lg border border-tag p-5">
+                  <Icon name={w.icon} className="mb-3 h-7 w-7 text-gold" />
+                  <h3 className="mb-1.5 text-base font-extrabold text-navy">{w.title}</h3>
+                  <p className="mb-0 text-sm leading-relaxed">{w.text}</p>
+                </Reveal>
+              ))}
+            </ul>
           </div>
         </div>
-        <img src="/images/about-page-img-bg.png" alt="" aria-hidden="true" className="absolute bottom-0 right-0 -z-10 max-sm:hidden" />
+      </section>
+
+      {/* regions + next step */}
+      <section className="bg-navy py-14 text-white">
+        <div className="container flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.35em] text-white/70">Regions we serve</p>
+            <ul className="flex flex-wrap gap-2">
+              {REGIONS_SERVED.map((r) => (
+                <li key={r} className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold">
+                  <span className="h-2 w-2 rounded-full bg-gold" aria-hidden="true" />
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/leadership-team" className="inline-flex items-center gap-2 rounded-md border border-white/30 px-5 py-3 font-bold transition hover:border-gold hover:text-gold">
+              Meet our leadership
+            </Link>
+            <Link to="/contact" className="inline-flex items-center gap-2 rounded-md bg-gold px-5 py-3 font-bold text-navy transition hover:bg-gold-light">
+              Request a Callback <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
       </section>
     </>
   );

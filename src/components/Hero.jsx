@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { HERO, NAV_CTA } from '../data/content.js';
+import { HERO } from '../data/content.js';
 import { ArrowRight } from './JobsPanel.jsx';
 
 /**
@@ -26,7 +26,7 @@ function Words({ text, start, step = 70, className = '' }) {
   ));
 }
 
-/** Full-bleed photo hero with animated headline, CTA and the five SmarTank pillars. */
+/** Full-bleed photo hero with animated headline, CTA and the five SMARTANK pillars. */
 export default function Hero() {
   const t0 = useMemo(introDelay, []);
   const leadWords = HERO.titleLead.split(' ').length;
@@ -46,20 +46,22 @@ export default function Hero() {
           <h1 className="mb-6 text-[38px] font-extrabold leading-[1.08] tracking-tight text-white sm:text-[52px] xl:text-[60px]">
             <Words text={HERO.titleLead} start={t0} /> <Words text={HERO.titleAccent} start={accentStart} className="text-gold" />
           </h1>
-          <p className="rise-in mb-8 text-lg font-medium leading-relaxed text-white/85 sm:text-xl" style={{ animationDelay: `${afterTitle}ms` }}>
-            {HERO.subtitle.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
+          <p className="rise-in mb-8 max-w-lg text-lg font-medium leading-relaxed text-white/85" style={{ animationDelay: `${afterTitle}ms` }}>
+            {HERO.subtitle}
           </p>
-          <div className="rise-in" style={{ animationDelay: `${afterTitle + 150}ms` }}>
+          <div className="rise-in flex flex-wrap items-center gap-3" style={{ animationDelay: `${afterTitle + 150}ms` }}>
             <Link
-              to={NAV_CTA.to}
+              to={HERO.cta.to}
               className="group inline-flex items-center gap-3 rounded-md bg-gold px-6 py-3.5 font-bold text-navy shadow-[0_14px_30px_-12px_rgba(242,194,48,0.7)] transition hover:-translate-y-0.5 hover:bg-gold-light"
             >
-              {NAV_CTA.label}
+              {HERO.cta.label}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/services"
+              className="inline-flex items-center rounded-md border border-white/35 px-6 py-3.5 font-bold text-white transition hover:border-gold hover:text-gold"
+            >
+              Our Services
             </Link>
           </div>
         </div>

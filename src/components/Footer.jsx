@@ -17,8 +17,8 @@ export default function Footer() {
 
       <div className="container relative grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1.2fr] lg:gap-8">
         <div>
-          <Link to="/" aria-label="SmarTank home" className="inline-block">
-            <img src="/images/logo.jpg" alt="SmarTank Strategic Consultants" className="h-[96px] w-[150px] rounded-lg" loading="lazy" />
+          <Link to="/" aria-label="SMARTANK home" className="inline-block">
+            <img src="/images/logo.jpg" alt="SMARTANK Strategic Consultants" className="h-[96px] w-[150px] rounded-lg" loading="lazy" />
           </Link>
           <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed text-white/70">
             India’s leading Executive Search and HR Consultancy Firm, Offering Unmatched Skill Mapping Services.
@@ -45,7 +45,7 @@ export default function Footer() {
           <ul>
             {SERVICES.map((s) => (
               <li key={s.id}>
-                <Link to={`/services#${s.id}`} className={`${link} items-start`}>
+                <Link to={`/services/${s.id}`} className={`${link} items-start`}>
                   <span className="mt-2">
                     <Dot />
                   </span>

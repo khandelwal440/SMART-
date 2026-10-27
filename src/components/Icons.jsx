@@ -97,6 +97,12 @@ const paths = {
       <path d="M2 20a6 6 0 0112 0M14 20a5 5 0 018 0" />
     </>
   ),
+  lock: (
+    <>
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2" />
+      <path d="M8 10.5V7a4 4 0 018 0v3.5M12 14.5v2.5" />
+    </>
+  ),
   search: (
     <>
       <circle cx="10.5" cy="10.5" r="6.5" />

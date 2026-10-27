@@ -19,7 +19,7 @@ export default function Preloader() {
   return (
     <div
       role="status"
-      aria-label="Loading SmarTank"
+      aria-label="Loading SMARTANK"
       className={`fixed inset-0 z-[100000] transition-[visibility] delay-[1.8s] duration-[0.8s] ${loaded ? 'invisible' : ''}`}
     >
       <div

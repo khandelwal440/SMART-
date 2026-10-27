@@ -47,7 +47,7 @@ export function CountUp({ to, suffix }) {
 export default function StatsBand() {
   return (
     // white cards that overlap the bottom of the navy hero
-    <section aria-label="SmarTank in numbers" className="relative z-[2] -mt-10 pb-4 sm:-mt-14">
+    <section aria-label="SMARTANK in numbers" className="relative z-[2] -mt-10 pb-4 sm:-mt-14">
       <div className="container">
         <ul className="grid grid-cols-2 gap-3 rounded-3xl bg-white p-3 shadow-[0_30px_60px_-30px_rgba(11,31,58,0.55)] sm:gap-4 sm:p-4 lg:grid-cols-4">
           {STATS.map((s) => (

@@ -6,7 +6,7 @@ import { BLOGS, CONTACT } from '../data/content.js';
 export default function Blogs() {
   return (
     <>
-      <PageBanner title="Blogs" />
+      <PageBanner title="Insights" />
       <section>
         <h2 className="my-12 px-3 text-center text-[calc(1.375rem+1.5vw)] font-medium leading-tight text-ink xl:text-[2.5rem]">
           CHECK OUR BLOGS ON{' '}

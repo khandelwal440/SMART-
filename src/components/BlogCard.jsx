@@ -9,7 +9,7 @@ export const formatDate = (iso) =>
 export default function BlogCard({ post }) {
   return (
     <article className="flex h-full flex-col rounded-[15px] bg-white transition-transform duration-300 [filter:drop-shadow(0px_7px_7px_rgba(189,202,202,0.35))] hover:-translate-y-1">
-      <Link to={`/blogs/${post.slug}`} tabIndex={-1} aria-hidden="true">
+      <Link to={`/insights/${post.slug}`} tabIndex={-1} aria-hidden="true">
         <Img src={post.image} alt="" className="aspect-[16/10] w-full rounded-t-[15px] object-cover" />
       </Link>
       <div className="flex flex-1 flex-col items-start p-5">
@@ -18,10 +18,10 @@ export default function BlogCard({ post }) {
           {formatDate(post.date)}
         </time>
         <h3 className="mb-2 mt-2 text-xl font-extrabold text-navy">
-          <Link to={`/blogs/${post.slug}`}>{post.title}</Link>
+          <Link to={`/insights/${post.slug}`}>{post.title}</Link>
         </h3>
         <p className="mb-5 flex-1 font-normal leading-6">{post.excerpt}</p>
-        <ArrowButton to={`/blogs/${post.slug}`} aria-label={`Read more: ${post.title}`}>
+        <ArrowButton to={`/insights/${post.slug}`} aria-label={`Read more: ${post.title}`}>
           Read More
         </ArrowButton>
       </div>

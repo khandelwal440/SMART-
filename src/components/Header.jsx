@@ -5,15 +5,15 @@ import { LinkedInIcon, WhatsAppIcon } from './Icons.jsx';
 import { ArrowRight } from './JobsPanel.jsx';
 
 const navLink =
-  'relative block px-3 py-2 text-[15px] font-medium text-white/80 transition-colors hover:text-white xxl:px-4 after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100';
+  'relative block whitespace-nowrap px-2 py-2 text-[14px] font-medium text-white/80 transition-colors hover:text-white xl:px-3 xl:text-[15px] xxl:px-4 after:absolute after:inset-x-3 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-gold after:transition-transform after:duration-300 hover:after:scale-x-100';
 const navActive = '!text-white after:!scale-x-100';
 
-/** Horizontal SmarTank logo: cube mark + gold wordmark, both cut from the original logo. */
+/** Horizontal SMARTANK logo: cube mark + gold wordmark, both cut from the original logo. */
 export function Logo({ className = '' }) {
   return (
     <span className={`flex items-center gap-2.5 ${className}`}>
-      <img src="/images/logo-mark.png" alt="" className="h-9 w-auto lg:h-11" />
-      <img src="/images/logo-word.png" alt="SmarTank Strategic Consultants" className="h-7 w-auto lg:h-9" />
+      <img src="/images/logo-mark.png" alt="" className="h-9 w-auto xl:h-11" />
+      <img src="/images/logo-word.png" alt="SMARTANK Strategic Consultants" className="h-7 w-auto xl:h-9" />
     </span>
   );
 }
@@ -153,7 +153,7 @@ export default function Header() {
       <div className="relative border-b border-white/10">
         <div className="container">
           <nav aria-label="Main" className="flex h-16 items-center justify-between gap-6 lg:h-20">
-            <Link to="/" aria-label="SmarTank home" className="relative z-[1101] shrink-0">
+            <Link to="/" aria-label="SMARTANK home" className="relative z-[1101] shrink-0">
               <Logo />
             </Link>
 
@@ -175,7 +175,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <Link
                 to={NAV_CTA.to}
-                className="hidden items-center gap-2 rounded-md bg-gold px-5 py-3 text-sm font-bold text-navy transition hover:-translate-y-0.5 hover:bg-gold-light sm:inline-flex"
+                className="hidden items-center gap-2 whitespace-nowrap rounded-md bg-gold px-5 py-3 text-sm font-bold text-navy transition hover:-translate-y-0.5 hover:bg-gold-light sm:inline-flex lg:hidden xl:inline-flex"
               >
                 {NAV_CTA.label}
                 <ArrowRight className="h-3.5 w-3.5" />

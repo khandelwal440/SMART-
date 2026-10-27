@@ -15,7 +15,7 @@ export default function BlogDetail() {
 
   return (
     <>
-      <PageBanner title="Blogs" crumbs={[{ label: 'Blogs', to: '/blogs' }, { label: post.category }]} />
+      <PageBanner title="Insights" crumbs={[{ label: 'Insights', to: '/insights' }, { label: post.category }]} />
       <article className="py-12">
         <div className="container max-w-4xl">
           <span className="head-tag">{post.category}</span>
@@ -30,7 +30,7 @@ export default function BlogDetail() {
             ))}
           </div>
           <div className="mt-10">
-            <ArrowButton to="/blogs">Back to Blogs</ArrowButton>
+            <ArrowButton to="/insights">Back to Insights</ArrowButton>
           </div>
         </div>
       </article>
