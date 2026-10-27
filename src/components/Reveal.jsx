@@ -66,11 +66,18 @@ export function useInView() {
  * fade-left/right/up, zoom-in, flip-left/right, slide-left/right).
  * Animates in on scroll down and resets when the element drops back below the fold.
  */
-export default function Reveal({ as: Tag = 'div', aos = 'fade-up', className = '', children, ...rest }) {
+export default function Reveal({ as: Tag = 'div', aos = 'fade-up', delay = 0, className = '', style, children, ...rest }) {
   const [ref, on] = useInView();
 
   return (
-    <Tag ref={ref} data-aos={aos} className={`${on ? 'aos-animate' : ''} ${className}`} {...rest}>
+    <Tag
+      ref={ref}
+      data-aos={aos}
+      className={`${on ? 'aos-animate' : ''} ${className}`}
+      // stagger: only delay the entrance, never the reset
+      style={{ ...style, transitionDelay: on && delay ? `${delay}ms` : undefined }}
+      {...rest}
+    >
       {children}
     </Tag>
   );

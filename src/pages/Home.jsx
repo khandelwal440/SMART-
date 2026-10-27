@@ -15,8 +15,8 @@ function WhatWeDo() {
       <div className="container grid gap-10 lg:grid-cols-[0.8fr_2fr] lg:gap-12">
         <SectionIntro eyebrow="What We Do" title={WHAT_WE_DO.title} text={WHAT_WE_DO.text} cta={{ label: 'Explore Our Services', to: '/services' }} />
         <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {WHAT_WE_DO.cards.map((c) => (
-            <Reveal as="li" aos="fade-up" key={c.title} className="h-full">
+          {WHAT_WE_DO.cards.map((c, i) => (
+            <Reveal as="li" aos="fade-up" delay={i * 120} key={c.title} className="h-full">
               <Link
                 to={c.to}
                 className="group flex h-full flex-col rounded-lg border border-black/5 bg-white p-6 shadow-[0_10px_30px_-20px_rgba(11,31,58,0.35)] transition-all duration-300 hover:-translate-y-1.5 hover:border-gold hover:shadow-[0_24px_40px_-24px_rgba(11,31,58,0.55)]"
@@ -41,8 +41,8 @@ function Industries() {
         <SectionIntro eyebrow="Industries We Cater" title={INDUSTRIES.title} text={INDUSTRIES.text} cta={{ label: 'Explore Industries', to: '/industries' }} />
         {/* sideways scroll with snapping on phones; 5 columns on wide screens */}
         <ul className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-2 [scrollbar-width:thin] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 xl:grid-cols-5">
-          {INDUSTRIES.list.map((ind) => (
-            <li key={ind.id} className="w-[70%] shrink-0 snap-start sm:w-[45%] md:w-auto">
+          {INDUSTRIES.list.map((ind, i) => (
+            <Reveal as="li" aos="fade-up" delay={i * 110} key={ind.id} className="w-[70%] shrink-0 snap-start sm:w-[45%] md:w-auto">
               <Link to={`/industries#${ind.id}`} className="group relative block aspect-[3/4] overflow-hidden rounded-lg bg-navy">
                 <img src={ind.image} alt={ind.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/30 to-transparent" aria-hidden="true" />
@@ -51,7 +51,7 @@ function Industries() {
                   <span className="block text-base font-extrabold leading-snug text-white">{ind.name}</span>
                 </div>
               </Link>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>
@@ -67,13 +67,13 @@ function GlobalPresence() {
         <SectionIntro eyebrow="Our Global Presence" title={GLOBAL_PRESENCE.title} text={GLOBAL_PRESENCE.text} light />
         <WorldMap markers={GLOBAL_PRESENCE.markers} className="w-full" />
         <ul className="grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-0 lg:divide-y lg:divide-white/10">
-          {GLOBAL_PRESENCE.stats.map((s) => (
-            <li key={s.label} className="flex flex-col items-start gap-1 lg:flex-row lg:items-center lg:gap-5 lg:py-5">
+          {GLOBAL_PRESENCE.stats.map((s, i) => (
+            <Reveal as="li" aos="fade-left" delay={300 + i * 150} key={s.label} className="flex flex-col items-start gap-1 lg:flex-row lg:items-center lg:gap-5 lg:py-5">
               <span className="text-[38px] font-extrabold leading-none text-gold sm:text-[46px]">
                 <CountUp to={s.value} suffix={s.suffix} />
               </span>
               <span className="text-xs font-bold uppercase tracking-[0.12em] text-white/85">{s.label}</span>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>
@@ -87,15 +87,21 @@ function Clients() {
       <div className="container grid items-center gap-8 lg:grid-cols-[0.8fr_2fr]">
         <SectionIntro eyebrow="Our Clients" title="Trusted by Leading Organizations." text="We are proud to partner with forward-thinking organisations across industries." className="lg:border-r lg:border-black/10 lg:pr-8" />
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
-          {CLIENTS.map((c) => (
-            <li key={c.name} className="flex h-20 items-center justify-center rounded-lg border border-dashed border-black/15 bg-cream px-4">
+          {CLIENTS.map((c, i) => (
+            <Reveal
+              as="li"
+              aos="zoom-in"
+              delay={i * 80}
+              key={c.name}
+              className="flex h-20 items-center justify-center rounded-lg border border-dashed border-black/15 bg-cream px-4"
+            >
               {c.logo ? (
                 <img src={c.logo} alt={c.name} className="max-h-12 w-auto object-contain grayscale transition hover:grayscale-0" loading="lazy" />
               ) : (
                 // placeholder until real, approved client logos are added in content.js
                 <span className="text-xs font-bold uppercase tracking-[0.15em] text-ink/70">{c.name} logo</span>
               )}
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>
@@ -109,8 +115,8 @@ function Testimonials() {
       <div className="container grid gap-10 lg:grid-cols-[0.8fr_2fr] lg:gap-12">
         <SectionIntro eyebrow="What Our Clients Say" title="Real Partnerships. Real Results." text="Hear from leaders who have experienced our impact." />
         <ul className="grid gap-4 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <Reveal as="li" aos="fade-up" key={t.role + t.company} className="h-full">
+          {TESTIMONIALS.map((t, i) => (
+            <Reveal as="li" aos="fade-up" delay={i * 150} key={t.role + t.company} className="h-full">
               <figure className="flex h-full flex-col rounded-lg bg-white p-6 shadow-[0_10px_30px_-20px_rgba(11,31,58,0.35)]">
                 <span className="mb-2 font-display text-5xl leading-none text-gold" aria-hidden="true">
                   “
@@ -152,12 +158,12 @@ function Connect() {
       <div className="container grid gap-10 lg:grid-cols-[1fr_1fr_0.8fr] lg:items-start">
         <SectionIntro eyebrow="Let’s Connect" title={CONNECT.title} text={CONNECT.text} light />
 
-        <div className="rounded-lg border border-white/10 bg-navy/90 p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.8)] sm:p-8">
+        <Reveal aos="fade-up" delay={150} className="rounded-lg border border-white/10 bg-navy/90 p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.8)] sm:p-8">
           <h3 className="mb-5 text-xl font-extrabold text-white">Start a Conversation</h3>
           <ConnectForm />
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal aos="fade-left" delay={300}>
           <ul className="space-y-4">
             {rows.map((r) => (
               <li key={r.text} className="flex items-center gap-4">
@@ -180,7 +186,7 @@ function Connect() {
               <WhatsAppIcon className="h-5 w-5" />
             </a>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -224,8 +224,60 @@
   color: transparent;
 }
 
+/* ---------- Landing page animations ---------- */
+
+/* slow "Ken Burns" drift on full-bleed photos */
+@keyframes kenburns {
+  from { transform: scale(1.12) translate3d(-1.5%, 0, 0); }
+  to { transform: scale(1) translate3d(0, 0, 0); }
+}
+.kenburns { animation: kenburns 14s ease-out both; }
+
+/* headline words rise out of a clipping line, one after another */
+@keyframes wordUp {
+  from { transform: translate3d(0, 110%, 0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.word-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.word { display: inline-block; animation: wordUp 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+
+/* general fade/slide entrances driven by animation-delay */
+@keyframes riseIn {
+  from { transform: translate3d(0, 24px, 0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes slideInRight {
+  from { transform: translate3d(28px, 0, 0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes growDown {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.rise-in { animation: riseIn 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+.slide-in-right { animation: slideInRight 0.7s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+.grow-down { transform-origin: top; animation: growDown 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+
+/* gold rule under section labels draws itself when it scrolls into view */
+.rule-draw { transform: scaleX(0); transform-origin: left; transition: transform 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) 0.15s; }
+.rule-draw.is-in { transform: scaleX(1); }
+
+/* world map: dots sweep in from the left, then the markers pop */
+.map-dots { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(0.6, 0, 0.2, 1); }
+.map-in .map-dots { clip-path: inset(0 0 0 0); }
+.map-marker { opacity: 0; transform: scale(0.2); transform-box: fill-box; transform-origin: center; transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.map-in .map-marker { opacity: 1; transform: none; }
+
+/* soft floating glow */
+@keyframes glowDrift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-30px, 20px, 0); }
+}
+.glow-drift { animation: glowDrift 12s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .rule-draw, .map-dots, .map-marker { transition: none !important; transform: none !important; clip-path: none !important; opacity: 1 !important; }
   [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }

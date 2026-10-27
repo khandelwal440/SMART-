@@ -1,4 +1,5 @@
 import { LAND, MAP } from '../data/worldDots.js';
+import { useInView } from './Reveal.jsx';
 
 const CELL = 10; // svg units per grid cell
 
@@ -26,22 +27,30 @@ const LABEL_POS = {
 
 /** Dotted world map with gold office markers. */
 export default function WorldMap({ markers, className = '' }) {
+  const [ref, inView] = useInView();
   const width = MAP.cols * CELL;
   const height = MAP.rows * CELL;
   const names = markers.map((m) => m.label).join(', ');
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className={className} role="img" aria-label={`World map showing SmarTank in ${names}`}>
-      <g fill="#ffffff" fillOpacity="0.16">
+    <svg
+      ref={ref}
+      viewBox={`0 0 ${width} ${height}`}
+      className={`${inView ? 'map-in' : ''} ${className}`}
+      role="img"
+      aria-label={`World map showing SmarTank in ${names}`}
+    >
+      {/* dots sweep in left to right; markers pop in afterwards, one by one */}
+      <g className="map-dots" fill="#ffffff" fillOpacity="0.16">
         {DOTS.map(([x, y]) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r={3.2} />
         ))}
       </g>
-      {markers.map((m) => {
+      {markers.map((m, i) => {
         const [x, y] = project(m.lat, m.lon);
         const pos = LABEL_POS[m.label] || { dx: 0, dy: -16, anchor: 'middle' };
         return (
-          <g key={m.label}>
+          <g key={m.label} className="map-marker" style={{ transitionDelay: inView ? `${1100 + i * 180}ms` : '0ms' }}>
             <circle cx={x} cy={y} r="16" fill="#F2C230" opacity="0.25">
               <animate attributeName="r" values="8;22;8" dur="2.4s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.45;0;0.45" dur="2.4s" repeatCount="indefinite" />
