@@ -101,11 +101,8 @@ export default function Footer() {
 
       {/* darker bottom bar with a thin gold rule; white-on-gold text was hard to read */}
       <div className="relative border-t border-gold/40 bg-[#071528] text-sm">
-        <div className="container flex flex-col items-center gap-1 py-5 text-center lg:flex-row lg:justify-between lg:text-left">
-          <span className="order-2 font-semibold tracking-wide text-white/70 lg:order-1">© SMARTANK. ALL RIGHTS RESERVED.</span>
-          <a href={CONTACT.credit} target="_blank" rel="noopener noreferrer" className="order-1 py-1 font-semibold text-gold-light hover:text-gold lg:order-2">
-            Designed &amp; Developed by Web Creative Dreams
-          </a>
+        <div className="container py-5 text-center">
+          <span className="font-semibold tracking-wide text-white/70">© SMARTANK. ALL RIGHTS RESERVED.</span>
         </div>
       </div>
     </footer>

@@ -11,7 +11,6 @@ export const CONTACT = {
   whatsapp: 'https://wa.link/wdrylz',
   linkedin: 'https://www.linkedin.com/company/smartank-strategic-consultants/about/?viewAsMember=true',
   linkedinPosts: 'https://www.linkedin.com/company/smartank-strategic-consultants/posts/?feedView=all&viewAsMember=true',
-  credit: 'https://webcreativedreams.com',
   portfolioPdf: '/pdf/company-portfolio.pdf',
 };
 
