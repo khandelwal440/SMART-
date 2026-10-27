@@ -60,7 +60,7 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#E8CB6A_1px,transparent_1px)] [background-size:24px_24px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#F8DA74_1px,transparent_1px)] [background-size:24px_24px]"
         aria-hidden="true"
       />
 
@@ -123,7 +123,7 @@ export default function HeroSlider({ slides = HERO_SLIDES }) {
                   />
                   <div className="absolute inset-[14%] rounded-full bg-gradient-to-br from-gold/30 to-transparent" aria-hidden="true" />
                   <img src={s.image} alt={s.alt} className="relative w-full" draggable="false" loading={i === 0 ? 'eager' : 'lazy'} />
-                  <div className="absolute -left-2 top-10 h-4 w-4 animate-bob4 rounded-full bg-gold shadow-[0_0_0_8px_rgba(201,162,39,0.18)]" aria-hidden="true" />
+                  <div className="absolute -left-2 top-10 h-4 w-4 animate-bob4 rounded-full bg-gold shadow-[0_0_0_8px_rgba(242,194,48,0.18)]" aria-hidden="true" />
                 </div>
               </div>
             );

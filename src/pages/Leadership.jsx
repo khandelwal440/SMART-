@@ -35,7 +35,7 @@ export default function Leadership() {
                 >
                   0{i + 1}
                 </span>
-                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-navy shadow-[0_12px_24px_-10px_rgba(201,162,39,0.9)] transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-navy shadow-[0_12px_24px_-10px_rgba(242,194,48,0.9)] transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
                   <Icon name={ICONS[i]} className="h-7 w-7" />
                 </span>
                 <h3 className="relative mb-3 mt-6 text-2xl font-extrabold text-navy transition-colors duration-500 group-hover:text-white">{b.title}</h3>

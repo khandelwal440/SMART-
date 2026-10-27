@@ -13,7 +13,7 @@ export default function PageBanner({ title, crumbs }) {
       <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gold/20 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute -bottom-32 left-1/4 h-72 w-72 rounded-full bg-navy-2 blur-3xl" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(#E8CB6A_1px,transparent_1px)] [background-size:22px_22px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(#F8DA74_1px,transparent_1px)] [background-size:22px_22px]"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute bottom-0 right-[8%] hidden h-40 w-40 rounded-t-full border-[14px] border-b-0 border-gold/30 md:block" aria-hidden="true" />

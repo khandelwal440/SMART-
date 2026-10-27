@@ -48,7 +48,7 @@ export default function JobsOpen() {
                     aria-pressed={on}
                     onClick={() => setPlace(name)}
                     className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-all duration-300 ${
-                      on ? 'border-gold bg-gold text-navy shadow-[0_10px_24px_-10px_rgba(201,162,39,0.9)]' : 'border-white/25 text-white hover:border-gold hover:text-gold'
+                      on ? 'border-gold bg-gold text-navy shadow-[0_10px_24px_-10px_rgba(242,194,48,0.9)]' : 'border-white/25 text-white hover:border-gold hover:text-gold'
                     }`}
                   >
                     {name}

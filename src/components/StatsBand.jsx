@@ -10,7 +10,7 @@ const STATS = [
 ];
 
 /** Counts from 0 to `to` once the element scrolls into view. */
-function CountUp({ to, suffix }) {
+export function CountUp({ to, suffix }) {
   const [ref, inView] = useInView();
   const [n, setN] = useState(0);
   const done = useRef(false);

@@ -27,22 +27,159 @@ export const NAV = [
       { label: 'Corporate Profile', href: CONTACT.portfolioPdf, external: true },
     ],
   },
-  { label: 'Services', to: '/services' },
-  { label: 'Blogs', to: '/blogs' },
+  { label: 'What We Do', to: '/services' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Global Presence', to: '/#global-presence' },
+  { label: 'Insights', to: '/blogs' },
+  {
+    label: 'Careers',
+    to: '/career',
+    children: [
+      { label: 'Jobs Open', to: '/jobs-open' },
+      { label: 'Join SmarTank', to: '/career' },
+    ],
+  },
+];
+
+/** Gold call-to-action button at the end of the header. */
+export const NAV_CTA = { label: 'Let’s Talk', to: '/contact' };
+
+export const FOOTER_NAV = [
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  { label: 'What We Do', to: '/services' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Insights', to: '/blogs' },
   { label: 'Jobs Open', to: '/jobs-open' },
   { label: 'Careers', to: '/career' },
   { label: 'Contact Us', to: '/contact' },
 ];
 
-export const FOOTER_NAV = [
-  { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Blogs', to: '/blogs' },
-  { label: 'Jobs Open', to: '/jobs-open' },
-  { label: 'Careers', to: '/career' },
-  { label: 'Contact Us', to: '/contact' },
+/* ------------------------------------------------------------------ */
+/*  Home page (consultancy-style layout)                              */
+/* ------------------------------------------------------------------ */
+const photo = (id, w = 1200) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+
+export const HERO = {
+  titleLead: 'Building Better Businesses Through',
+  titleAccent: 'Strategic Clarity.',
+  subtitle: ['People. Performance. Growth.', 'Across Borders.'],
+  // Free Unsplash stock photo – replace with your own photography if you have it.
+  image: photo('photo-1480714378408-67cf0d13bc1b', 1920),
+  pillars: ['Strategy', 'People', 'Systems', 'Leadership', 'Sustainable Growth'],
+};
+
+export const WHAT_WE_DO = {
+  title: 'From People Strategies to Business Outcomes.',
+  text: 'We partner with businesses to build high performing teams, world-class people systems and a culture of sustainable growth.',
+  cards: [
+    { icon: 'team', title: 'Strategic HR Business Partnership', text: 'Aligning people strategy with business goals.', to: '/services#hr-business-partnering' },
+    { icon: 'search', title: 'Talent Acquisition', text: 'Right talent. Right fit. Lasting impact.', to: '/services#executive-talent-acquisition' },
+    { icon: 'chart', title: 'Performance Management', text: 'Driving accountability and measurable results.', to: '/services#performance-management-system' },
+    { icon: 'leaders', title: 'Leadership Development', text: 'Building leaders for today and tomorrow.', to: '/services#hr-transformation-leadership' },
+  ],
+};
+
+export const INDUSTRIES = {
+  title: 'Diverse Industries. Deeper Expertise.',
+  text: 'We work with businesses across key industries, bringing practical solutions that create lasting impact.',
+  // Free Unsplash stock photos – replace with your own if you have them.
+  list: [
+    {
+      id: 'energy',
+      name: 'Energy & Oil Marketing',
+      image: photo('photo-1518709766631-a6a7f45921c3', 700),
+      text: 'Leadership hiring and people systems for fuel retail, oil marketing and energy businesses.',
+    },
+    {
+      id: 'logistics',
+      name: 'Logistics & Supply Chain',
+      image: photo('photo-1601584115197-04ecc0da31d7', 700),
+      text: 'Building operations, logistics and supply-chain teams that keep goods moving.',
+    },
+    {
+      id: 'manufacturing',
+      name: 'Manufacturing',
+      image: photo('photo-1513828583688-c52646db42da', 700),
+      text: 'Plant leadership, performance frameworks and talent for manufacturing units.',
+    },
+    {
+      id: 'construction',
+      name: 'Construction & Infrastructure',
+      image: photo('photo-1541888946425-d81bb19240f5', 700),
+      text: 'Project and site leadership for construction and infrastructure organisations.',
+    },
+    {
+      id: 'fmcg',
+      name: 'FMCG, Retail & Trading',
+      image: photo('photo-1604719312566-8912e9227c6a', 700),
+      text: 'Sales, marketing and commercial leaders for FMCG, retail and trading companies.',
+    },
+  ],
+};
+
+export const GLOBAL_PRESENCE = {
+  title: 'Local Understanding. Global Perspective.',
+  text: 'We partner with businesses across key markets, bringing practical insights that create best practices.',
+  // Map markers (lat/lon). Africa is placed at Nairobi as a representative point.
+  markers: [
+    { label: 'UK', lat: 51.5, lon: -0.1 },
+    { label: 'UAE', lat: 25.2, lon: 55.3 },
+    { label: 'India', lat: 19.1, lon: 72.9 },
+    { label: 'Singapore', lat: 1.35, lon: 103.8 },
+    { label: 'Africa', lat: -1.3, lon: 36.8 },
+  ],
+  // TODO: confirm these figures before launch – they come from the design mockup.
+  stats: [
+    { value: 5, suffix: '', label: 'Countries' },
+    { value: 100, suffix: '+', label: 'Businesses Supported' },
+    { value: 20, suffix: '+', label: 'Industries Covered' },
+  ],
+};
+
+/*
+ * PLACEHOLDERS – replace before launch.
+ * Only list companies you have permission to name, and add their logo files
+ * to /public/images/clients/ (set `logo` to the file path). Until then the
+ * section shows neutral placeholder tiles.
+ */
+export const CLIENTS = [
+  { name: 'Client 1', logo: null },
+  { name: 'Client 2', logo: null },
+  { name: 'Client 3', logo: null },
+  { name: 'Client 4', logo: null },
+  { name: 'Client 5', logo: null },
+  { name: 'Client 6', logo: null },
 ];
+
+/*
+ * PLACEHOLDERS – sample quotes from the design mockup. Replace them with real,
+ * approved client testimonials before the site goes live.
+ */
+export const TESTIMONIALS = [
+  {
+    quote: 'SMARTANK brought structure, clarity and accountability to our people processes. Their approach is practical, professional and highly effective.',
+    role: 'HR Leader',
+    company: 'Manufacturing Company',
+  },
+  {
+    quote: 'The SMARTANK team understands business, not just HR. They have been a valuable partner in our growth journey.',
+    role: 'Director',
+    company: 'Logistics & Supply Chain Company',
+  },
+  {
+    quote: 'Their deep industry knowledge and hands-on approach helped us strengthen our leadership pipeline and performance culture.',
+    role: 'CHRO',
+    company: 'Consumer Goods Company',
+  },
+];
+
+export const CONNECT = {
+  title: 'Let’s Build Something Better Together.',
+  text: 'Whether you are looking to hire, build stronger teams, implement a performance system or need a strategic HR partner — we are here to help.',
+  // Free Unsplash stock photo – replace with your own if you have it.
+  image: photo('photo-1514565131-fce0801e5785', 1920),
+};
 
 export const HERO_SLIDES = [
   {

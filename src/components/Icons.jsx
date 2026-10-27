@@ -97,6 +97,21 @@ const paths = {
       <path d="M2 20a6 6 0 0112 0M14 20a5 5 0 018 0" />
     </>
   ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M15.5 15.5L21 21" />
+    </>
+  ),
+  chart: <path d="M4 20V13M9.5 20V9M15 20v-6M20.5 20V5M3 20.5h18.5M4 9l5-4 5 4 6.5-5" />,
+  leaders: (
+    <>
+      <circle cx="12" cy="6" r="2.5" />
+      <circle cx="5" cy="9" r="2" />
+      <circle cx="19" cy="9" r="2" />
+      <path d="M8 20v-4a4 4 0 018 0v4M1.5 20v-3a3.5 3.5 0 015.5-2.9M22.5 20v-3a3.5 3.5 0 00-5.5-2.9" />
+    </>
+  ),
   globe: (
     <>
       <circle cx="12" cy="12" r="9" />

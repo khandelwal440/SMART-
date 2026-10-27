@@ -15,8 +15,8 @@ export default {
         navy: '#0B1F3A', // primary: headings, dark sections
         'navy-2': '#13305A', // lighter navy for gradients and hovers
         brand: '#24537A', // the logo's own navy, used behind the logo
-        gold: '#C9A227', // accent: buttons, highlights
-        'gold-light': '#E8CB6A',
+        gold: '#F2C230', // accent: buttons, highlights (matches the SMARTANK wordmark yellow)
+        'gold-light': '#F8DA74',
         tag: '#F4EBD3', // soft gold tint for pills and borders
         ink: '#5B6577', // body text
         navlink: '#3A4658',
@@ -24,7 +24,8 @@ export default {
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        // headings: bold sans, as in the consultancy-style layout
+        display: ['"Plus Jakarta Sans"', 'sans-serif'],
       },
       keyframes: {
         rotateme: { from: { transform: 'rotate(0deg)' }, to: { transform: 'rotate(360deg)' } },

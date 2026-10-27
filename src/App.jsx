@@ -4,6 +4,7 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Leadership from './pages/Leadership.jsx';
 import Services from './pages/Services.jsx';
+import Industries from './pages/Industries.jsx';
 import Blogs from './pages/Blogs.jsx';
 import BlogDetail from './pages/BlogDetail.jsx';
 import JobsOpen from './pages/JobsOpen.jsx';
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="about" element={<About />} />
         <Route path="leadership-team" element={<Leadership />} />
         <Route path="services" element={<Services />} />
+        <Route path="industries" element={<Industries />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="blogs/:slug" element={<BlogDetail />} />
         <Route path="jobs-open" element={<JobsOpen />} />

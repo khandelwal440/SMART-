@@ -20,7 +20,7 @@ export default function JobsPanel({ jobs, onApply, footer, className = '' }) {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {jobs.map((j, i) => (
             <Reveal as="li" aos="flip-left" key={`${j.title}-${i}`}>
-              <div className="group flex h-full items-baseline rounded-[20px] border border-white/10 bg-[linear-gradient(107.98deg,rgba(255,255,255,0.1)_37.75%,rgba(255,255,255,0)_190.53%)] p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold hover:bg-white hover:shadow-[0_20px_45px_-15px_rgba(201,162,39,0.55)]">
+              <div className="group flex h-full items-baseline rounded-[20px] border border-white/10 bg-[linear-gradient(107.98deg,rgba(255,255,255,0.1)_37.75%,rgba(255,255,255,0)_190.53%)] p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-gold hover:bg-white hover:shadow-[0_20px_45px_-15px_rgba(242,194,48,0.55)]">
                 <ArrowRight className="mr-[15px] h-4 w-4 shrink-0 text-gold transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#171717]" />
                 <div className="font-extrabold text-white group-hover:text-[#171717] max-sm:block">
                   <p className="mb-0">

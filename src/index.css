@@ -13,7 +13,7 @@
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 { @apply font-display text-navy; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
-  ::selection { background: #C9A227; color: #0B1F3A; }
+  ::selection { background: #F2C230; color: #0B1F3A; }
   h1 { font-size: calc(1.375rem + 1.5vw); }
   h2 { font-size: calc(1.325rem + 0.9vw); }
   h3 { font-size: calc(1.3rem + 0.6vw); }
@@ -27,7 +27,7 @@
     h4 { font-size: 1.5rem; }
   }
   p { margin-bottom: 1rem; }
-  :focus-visible { outline: 2px solid #C9A227; outline-offset: 2px; }
+  :focus-visible { outline: 2px solid #F2C230; outline-offset: 2px; }
 }
 
 @layer components {
@@ -49,7 +49,7 @@
     transition: left 0.6s ease, opacity 0.2s;
   }
   .st-btn:hover::after { left: 120%; opacity: 1; }
-  .st-btn { overflow: hidden; box-shadow: 0 10px 24px -12px rgba(201, 162, 39, 0.8); }
+  .st-btn { overflow: hidden; box-shadow: 0 10px 24px -12px rgba(242, 194, 48, 0.8); }
   .st-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(11, 31, 58, 0.8); }
   .st-btn:disabled { @apply cursor-not-allowed opacity-70; }
 
@@ -74,12 +74,12 @@
   .head-tag::before {
     content: '';
     @apply h-1.5 w-1.5 shrink-0 rounded-full bg-gold;
-    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.7);
+    box-shadow: 0 0 0 0 rgba(242, 194, 48, 0.7);
     animation: tagPulse 2s infinite;
   }
   @keyframes tagPulse {
-    70% { box-shadow: 0 0 0 7px rgba(201, 162, 39, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0); }
+    70% { box-shadow: 0 0 0 7px rgba(242, 194, 48, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(242, 194, 48, 0); }
   }
 
   /* lift + glow on interactive cards */
@@ -172,7 +172,7 @@
 }
 /* panel uses the logo image's own navy so the JPG blends in; gold stripe on the slanted edge */
 .logo-panel::after { right: 0; width: 500%; background: #24537A; }
-.logo-panel::before { right: -10px; width: 100%; background: #C9A227; }
+.logo-panel::before { right: -10px; width: 100%; background: #F2C230; }
 @media (max-width: 350px) {
   .logo-panel { padding-right: 170px !important; }
   .logo-panel::after { transform: skew(0deg); }
@@ -186,7 +186,7 @@
   width: 8px;
   height: 12px;
   margin-right: 10px;
-  background: #C9A227;
+  background: #F2C230;
   clip-path: polygon(0 0, 30% 0, 100% 50%, 30% 100%, 0 100%, 70% 50%);
 }
 
@@ -217,7 +217,7 @@
 
 /* Gradient text accent */
 .text-gradient {
-  background: linear-gradient(90deg, #0B1F3A, #2f7fb8, #C9A227, #0B1F3A);
+  background: linear-gradient(90deg, #0B1F3A, #2f7fb8, #F2C230, #0B1F3A);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
